@@ -7,23 +7,24 @@ html {
 }
 
 body {
-    background-color: #FAF7F2;
+    background-color: black;
     font-family: 'Raleway', sans-serif;
     letter-spacing: .5px;
     margin: 0 auto;
     margin-top: 50px;
     padding: 30px 5px 0px 0px;
+    color: #FAF7F2;
 }
 
 h1, h2, h3, h4, h5 {
-    color: #383838;
+    color: #FAF7F2;
     font-family: 'Raleway', sans-serif;
 }
 
 hr {
     overflow: visible;
     height: 2px;
-    border-top: 1px solid #383838;
+    border-top: 1px solid #FAF7F2;
     margin: 1.8em 0;
 }
 
@@ -35,6 +36,7 @@ hr {
 .oswald-header {
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
+    color: yellow;
 }
 
 .script {
