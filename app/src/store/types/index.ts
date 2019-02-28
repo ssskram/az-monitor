@@ -12,15 +12,10 @@ export interface messsage {
     message: string
 }
 
-// application
-export interface application {
-    name: string
-    status: string
-    url: string
-    resourceGroup: string
+// application service
+export interface appServices {
+    appServices: appService[]
 }
-
-// application services
 export interface appService {
     name: string
     resourceGroup: string
@@ -31,6 +26,30 @@ export interface appService {
     services: string
 }
 
+// api applications
+export interface apiApps {
+    apiApps: application[]
+}
+
+// client applications
+export interface clientApps {
+    clientApps: application[]
+}
+
+// serverless applications
+export interface serverlessApps {
+    serverlessApps: application[]
+}
+
+// application
+export interface application {
+    name: string
+    status: string
+    url: string
+    resourceGroup: string
+}
+
+// metrics
 export interface metrics {
     type: string
     unit: string
