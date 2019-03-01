@@ -23,7 +23,7 @@ export interface appService {
     status: string
     size: string
     countServices: number
-    services: string
+    services: { type: string }
 }
 
 // api applications
@@ -60,4 +60,12 @@ export interface metrics {
 export interface metric {
     timestamp: string
     average: string
+}
+
+// deployment
+export interface deployment {
+    author: string
+    message: string
+    completed: string
+    active: boolean
 }
