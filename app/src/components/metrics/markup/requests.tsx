@@ -8,7 +8,7 @@ type props = {
 }
 
 type state = {
-    requests: types.metric[]
+    requests: any
 }
 
 
@@ -27,40 +27,44 @@ export default class Requests extends React.Component<props, state> {
     }
 
     render() {
-        const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'Requests',
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: 'rgba(75,192,192,0.4)',
-                    borderColor: 'rgba(75,192,192,1)',
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: 'rgba(75,192,192,1)',
-                    pointBackgroundColor: '#fff',
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                    pointHoverBorderColor: 'rgba(220,220,220,1)',
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                }
-            ]
-        };
-        return (
-            <div>
-                {this.state.requests &&
-                    <Line
-                        data={data}
-                    />
-                }
-            </div>
-        )
+        if (this.state.requests) {
+            const data = {
+                labels: this.state.requests[0].metrics.map(i => i.timestamp),
+                datasets: [
+                    {
+                        label: 'Requests',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: 'rgba(75,192,192,0.4)',
+                        borderColor: 'rgba(75,192,192,1)',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: this.state.requests[0].metrics.map(i => i.average)
+                    }
+                ]
+            }
+            return (
+                <div>
+                    {this.state.requests &&
+                        <Line
+                            data={data}
+                        />
+                    }
+                </div>
+            )
+        } else {
+            return null
+        }
     }
 }

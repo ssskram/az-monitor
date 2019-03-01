@@ -49,19 +49,6 @@ export interface application {
     resourceGroup: string
 }
 
-// metrics
-export interface metrics {
-    type: string
-    unit: string
-    startTime: string
-    endTime: string
-    metrics: metric[]
-}
-export interface metric {
-    timestamp: string
-    average: string
-}
-
 // deployment
 export interface deployment {
     author: string

@@ -8,7 +8,7 @@ type props = {
 }
 
 type state = {
-    fourHundo: types.metric[]
+    fourHundo: any
 }
 
 
@@ -27,40 +27,43 @@ export default class FourHundo extends React.Component<props, state> {
     }
 
     render() {
-        const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: '400s',
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: 'rgba(178,34,34,.4)',
-                    borderColor: 'rgb(178,34,34)',
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: 'rgb(178,34,34)',
-                    pointBackgroundColor: '#fff',
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: 'rgb(178,34,34)',
-                    pointHoverBorderColor: 'rgb(178,34,34)',
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                }
-            ]
-        };
-        return (
-            <div>
-                {this.state.fourHundo &&
+        if (this.state.fourHundo) {
+            const data = {
+                labels: this.state.fourHundo[0].metrics.map(i => i.timestamp),
+                datasets: [
+                    {
+                        label: '400s',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: 'rgba(178,34,34,.4)',
+                        borderColor: 'rgb(178,34,34)',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgb(178,34,34)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: 'rgb(178,34,34)',
+                        pointHoverBorderColor: 'rgb(178,34,34)',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: this.state.fourHundo[0].metrics.map(i => i.average)
+                    }
+                ]
+            }
+            return (
+                <div>
                     <Line
                         data={data}
                     />
-                }
-            </div>
-        )
+
+                </div>
+            )
+        } else {
+            return null
+        }
     }
 }
