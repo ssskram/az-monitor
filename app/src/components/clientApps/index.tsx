@@ -1,6 +1,11 @@
 import * as React from 'react'
+import * as types from '../../store/types'
 
-export default class ClientApplications extends React.Component<any, any> {
+type props = {
+    clientApps: types.application[]
+}
+
+export default class ClientApplications extends React.Component<props, any> {
 
     render() {
         return (

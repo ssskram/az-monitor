@@ -14,7 +14,6 @@ export const actionCreators = {
             headers: new Headers({
                 'Authorization': 'Bearer ' + process.env.REACT_APP_AZURE_PROXY
             })
-
         })
             .then(res => res.json())
             .then(data => {

@@ -1,7 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
-import * as MessageStore from '../../store/messages'
+import * as apiApps from '../../store/apiApplications'
+import * as appServices from '../../store/appServices'
+import * as clientApps from '../../store/clientApps'
+import * as serverlessApps from '../../store/serverlessApps'
+import * as types from '../../store/types'
 import HydrateStore from '../utilities/hydrateStore'
 import Messages from '../utilities/messages'
 import ModuleSelection from './markup/moduleSelection'
@@ -11,7 +15,10 @@ import ClientApps from '../clientApps'
 import Serverless from '../serverlessFuncs'
 
 type props = {
-
+    apiApps: types.application[],
+    clientApps: types.application[],
+    serverlessApps: types.application[],
+    appServices: types.appService[]
 }
 
 type state = {
@@ -43,16 +50,24 @@ export class Home extends React.Component<props, state> {
                     setState={this.setState.bind(this)}
                 />
                 {currentModule == 'appservices' &&
-                    <AppServices />
+                    <AppServices 
+                        appServices={this.props.appServices}
+                    />
                 }
                 {currentModule == 'apis' &&
-                    <APIs />
+                    <APIs 
+                        apiApps={this.props.apiApps}
+                    />
                 }
                 {currentModule == 'clientapps' &&
-                    <ClientApps />
+                    <ClientApps 
+                        clientApps={this.props.clientApps}
+                    />
                 }
                 {currentModule == 'serverless' &&
-                    <Serverless />
+                    <Serverless 
+                        serverlessApps={this.props.serverlessApps}
+                    />
                 }
             </div>
         )
@@ -62,9 +77,15 @@ export class Home extends React.Component<props, state> {
 
 export default connect(
     (state: ApplicationState) => ({
-        ...state.messages
+        ...state.apiApps,
+        ...state.appServices,
+        ...state.clientApps,
+        ...state.serverlessApps
     }),
     ({
-        ...MessageStore.actionCreators,
+        ...apiApps.actionCreators,
+        ...appServices.actionCreators,
+        ...clientApps.actionCreators,
+        ...serverlessApps.actionCreators
     })
-)(Home)
+)(Home as any)

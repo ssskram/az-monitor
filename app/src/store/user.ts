@@ -4,12 +4,13 @@ import { AppThunkAction } from '.'
 import * as constants from './constants'
 import * as types from './types'
 
-const unloadedState: types.user = {
-    email: '...loading',
-    organization: '...loading',
-    name: '...loading'
+const unloadedState = {
+    user: {
+        email: '...loading',
+        organization: '...loading',
+        name: '...loading'
+    }
 }
-
 
 export const actionCreators = {
     loadUser: (): AppThunkAction<any> => async (dispatch) => {
@@ -26,7 +27,7 @@ export const actionCreators = {
     }
 }
 
-export const reducer: Reducer<types.user> = (state: types.user, incomingAction: Action) => {
+export const reducer: Reducer<types.user> = (state: any, incomingAction: Action) => {
     const action = incomingAction as any
     switch (action.type) {
         case constants.loadUser:

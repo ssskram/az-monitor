@@ -1,16 +1,16 @@
 import * as React from 'react'
 import * as types from '../../store/types'
 
-type props = {
-    serverlessApps: types.application[]
+type props = {  
+    application: types.application
 }
 
-export default class ServerlessApplications extends React.Component<props, any> {
+export default class ApplicationCard extends React.Component<props, {}> {
 
     render() {
         return (
             <div>
-                lambdas
+                App card
             </div>
         )
     }
