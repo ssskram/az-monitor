@@ -29,7 +29,7 @@ export class Home extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
-            currentModule: undefined
+            currentModule: 'appservices'
         }
     }
 
@@ -47,6 +47,7 @@ export class Home extends React.Component<props, state> {
                 <HydrateStore />
                 <Messages />
                 <ModuleSelection
+                    currentModule={this.state.currentModule}
                     setState={this.setState.bind(this)}
                 />
                 {currentModule == 'appservices' &&

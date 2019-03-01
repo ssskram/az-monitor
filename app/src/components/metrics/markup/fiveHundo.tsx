@@ -57,6 +57,15 @@ export default class FourHundo extends React.Component<props, state> {
                 <div>
                     <Line
                         data={data}
+                        options={{
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }}
                     />
 
                 </div>
