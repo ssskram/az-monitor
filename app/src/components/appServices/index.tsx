@@ -10,7 +10,6 @@ export default class AppServices extends React.Component<props, any> {
     render() {
         return (
             <div>
-                app services
             </div>
         )
     }

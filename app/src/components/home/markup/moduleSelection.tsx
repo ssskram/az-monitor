@@ -17,7 +17,7 @@ export default class ModuleSelection extends React.Component<props, {}> {
 
     render() {
         return (
-            <div>
+            <div className='text-center'>
                 <button
                     onClick={() => this.props.setState({ currentModule: 'appservices' })}
                     className='btn btn-secondary'>

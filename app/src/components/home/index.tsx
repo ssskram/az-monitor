@@ -43,29 +43,29 @@ export class Home extends React.Component<props, state> {
         } = this.state
 
         return (
-            <div className='text-center'>
+            <div className='col-md-10 col-md-offset-1' style={{ marginBottom: '100px' }}>
                 <HydrateStore />
                 <Messages />
                 <ModuleSelection
                     setState={this.setState.bind(this)}
                 />
                 {currentModule == 'appservices' &&
-                    <AppServices 
+                    <AppServices
                         appServices={this.props.appServices}
                     />
                 }
                 {currentModule == 'apis' &&
-                    <APIs 
+                    <APIs
                         apiApps={this.props.apiApps}
                     />
                 }
                 {currentModule == 'clientapps' &&
-                    <ClientApps 
+                    <ClientApps
                         clientApps={this.props.clientApps}
                     />
                 }
                 {currentModule == 'serverless' &&
-                    <Serverless 
+                    <Serverless
                         serverlessApps={this.props.serverlessApps}
                     />
                 }
