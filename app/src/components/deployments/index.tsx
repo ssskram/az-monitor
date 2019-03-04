@@ -41,9 +41,17 @@ export default class Deployments extends React.Component<props, state> {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.getDeployments(this.props)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({deployments: undefined}, () => { this.getDeployments(nextProps) })
+    }
+
+    async getDeployments(props) {
         this.setState({
-            deployments: await getDeployments(this.props.application.resourceGroup, this.props.application.name)
+            deployments: await getDeployments(props.application.resourceGroup, props.application.name)
         })
     }
 

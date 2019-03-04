@@ -15,8 +15,7 @@ export default class ApplicationCard extends React.Component<props, {}> {
     render() {
         const {
             application
-        } = this.props
-
+        } = this.props        
         return (
             <div className='panel'>
                 <div className='panel-body'>

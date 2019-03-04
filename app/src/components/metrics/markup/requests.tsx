@@ -20,9 +20,18 @@ export default class Requests extends React.Component<props, state> {
         }
     }
 
-    async componentDidMount() {
+
+    componentDidMount() {
+        this.getRequests(this.props)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ requests: undefined }, () => { this.getRequests(nextProps) })
+    }
+
+    async getRequests(props) {
         this.setState({
-            requests: await getMetrics(this.props.application.resourceGroup, this.props.application.name)
+            requests: await getMetrics(props.application.resourceGroup, props.application.name)
         })
     }
 
@@ -55,20 +64,18 @@ export default class Requests extends React.Component<props, state> {
         }
         return (
             <div>
-                {this.state.requests &&
-                    <Line
-                        data={data}
-                        options={{
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
-                        }}
-                    />
-                }
+                <Line
+                    data={data}
+                    options={{
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }}
+                />
             </div>
         )
     }

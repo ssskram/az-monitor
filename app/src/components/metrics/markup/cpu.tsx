@@ -19,9 +19,13 @@ export default class FourHundo extends React.Component<props, state> {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.getCPU(this.props)
+    }
+
+    async getCPU(props) {
         this.setState({
-            cpu: await getMetrics(this.props.appService.name)
+            cpu: await getMetrics(props.appService.name)
         })
     }
 

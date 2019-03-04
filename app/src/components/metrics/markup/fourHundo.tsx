@@ -20,9 +20,17 @@ export default class FourHundo extends React.Component<props, state> {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.getFourHundoErrors(this.props)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ fourHundo: undefined }, () => { this.getFourHundoErrors(nextProps) })
+    }
+
+    async getFourHundoErrors(props) {
         this.setState({
-            fourHundo: await getMetrics(this.props.application.resourceGroup, this.props.application.name)
+            fourHundo: await getMetrics(props.application.resourceGroup, props.application.name)
         })
     }
 

@@ -19,9 +19,17 @@ export default class FourHundo extends React.Component<props, state> {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.getFiveHundoErrors(this.props)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({fiveHundo: undefined}, () => { this.getFiveHundoErrors(nextProps) })
+    }
+
+    async getFiveHundoErrors(props) {
         this.setState({
-            fiveHundo: await getMetrics(this.props.application.resourceGroup, this.props.application.name)
+            fiveHundo: await getMetrics(props.application.resourceGroup, props.application.name)
         })
     }
 
