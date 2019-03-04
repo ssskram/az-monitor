@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as types from '../../store/types'
 import ApplicationCard from '../shared/applicationCard'
 import Paging from '../utilities/paging'
+import Filter from '../filter'
 
 type props = {
     clientApps: types.application[]
@@ -9,7 +10,7 @@ type props = {
 
 type state = {
     currentPage: number
-    items: any
+    clientApps: any
 }
 
 export default class ClientApplications extends React.Component<props, state> {
@@ -17,8 +18,18 @@ export default class ClientApplications extends React.Component<props, state> {
         super(props)
         this.state = {
             currentPage: 1,
-            items: undefined
+            clientApps: props.clientApps
         }
+    }
+
+    componentWillReceiveProps(nextProps) { this.setState({ clientApps: nextProps.clientApps }) }
+    filter(appName) {
+        if (appName) {
+            this.setState({ 
+                currentPage: 1,
+                clientApps: this.props.clientApps.filter(app => app.name == appName) 
+            })
+        } else this.setState({ clientApps: this.props.clientApps })
     }
 
     render() {
@@ -26,21 +37,25 @@ export default class ClientApplications extends React.Component<props, state> {
         // Logic for paging
         const indexOfLastItem = this.state.currentPage * 10
         const indexOfFirstItem = indexOfLastItem - 10;
-        const currentItems = this.props.clientApps.slice(indexOfFirstItem, indexOfLastItem);
+        const currentItems = this.state.clientApps.slice(indexOfFirstItem, indexOfLastItem);
         const renderItems = currentItems.map((item, index) => {
             return <ApplicationCard key={index} application={item} />
         })
 
         // Logic for displaying page numbers
         const pageNumbers: any[] = []
-        for (let i = 1; i <= Math.ceil(this.props.clientApps.length / 10); i++) {
+        for (let i = 1; i <= Math.ceil(this.state.clientApps.length / 10); i++) {
             pageNumbers.push(i);
         }
 
         return <div>
+            <Filter 
+                filter={this.filter.bind(this)}
+                applications={this.props.clientApps}
+            />
             {renderItems}
             <Paging
-                countItems={this.props.clientApps}
+                countItems={this.state.clientApps}
                 currentPage={this.state.currentPage}
                 totalPages={pageNumbers}
                 next={() => this.setState({ currentPage: this.state.currentPage + 1 })}
