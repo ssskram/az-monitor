@@ -6,6 +6,7 @@ import FourHundo from '../metrics/markup/fourHundo'
 import FiveHundo from '../metrics/markup/fiveHundo'
 
 type props = {
+    type: string
     application: types.application
 }
 
@@ -31,7 +32,7 @@ export default class ApplicationCard extends React.Component<props, {}> {
                             <div className='row'>
                                 <div className='col-md-12'>
                                     <div className='pull-right'>
-                                        {application.url}
+                                        <a href={this.props.type == 'api' ? 'https://' + application.url + '/docs' : "https://" + application.url} target='_blank'>{this.props.type == 'api' ? application.url + '/docs' : application.url}</a>
                                     </div>
                                     <div className='pull-left'>
                                         <b>Deployments</b>

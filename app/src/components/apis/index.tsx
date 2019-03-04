@@ -39,7 +39,7 @@ export default class APIs extends React.Component<props, state> {
         const indexOfFirstItem = indexOfLastItem - 10;
         const currentItems = this.state.apiApps.slice(indexOfFirstItem, indexOfLastItem);
         const renderItems = currentItems.map((item, index) => {
-            return <ApplicationCard key={index} application={item} />
+            return <ApplicationCard key={index} application={item} type='api' />
         })
 
         // Logic for displaying page numbers
