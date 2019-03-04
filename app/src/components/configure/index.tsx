@@ -16,8 +16,12 @@ export default class Configure extends React.Component<props, state> {
     }
 
     render() {
-        return <div className='panel panel-body'>
-            Configure
-        </div>
+        return (
+            <div className='col-md-8 col-md-offset-2'>
+                <div className='panel panel-body'>
+                    Configure
+                </div>
+            </div>
+        )
     }
 }

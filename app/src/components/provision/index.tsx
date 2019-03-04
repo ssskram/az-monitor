@@ -17,8 +17,12 @@ export default class Provision extends React.Component<props, state> {
 
 
     render() {
-        return <div className='panel panel-body'>
-            Provision
-        </div>
+        return (
+            <div className='col-md-8 col-md-offset-2'>
+                <div className='panel panel-body'>
+                    Provision
+                </div>
+            </div>
+        )
     }
 }
