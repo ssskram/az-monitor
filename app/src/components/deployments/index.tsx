@@ -49,20 +49,16 @@ export default class Deployments extends React.Component<props, state> {
 
     render() {
         return (
-            <div>
-                {this.state.deployments &&
-                    <ReactTable
-                        data={this.state.deployments}
-                        columns={columns}
-                        loading={false}
-                        minRows={0}
-                        pageSize={3}
-                        showPageJump={false}
-                        showPageSizeOptions={false}
-                        noDataText=''
-                    />
-                }
-            </div>
+            <ReactTable
+                data={this.state.deployments}
+                columns={columns}
+                loading={false}
+                minRows={3}
+                pageSize={3}
+                showPageJump={false}
+                showPageSizeOptions={false}
+                noDataText='...loading deployment history...'
+            />
         )
     }
 }
