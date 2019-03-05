@@ -10,7 +10,7 @@ export default class AppName extends React.Component<props, {}> {
     render() {
         return (
             <div className='col-md-12' style={{ padding: '15px' }}>
-                <h4><b>Whose name shall be...</b></h4>
+                <h4><b>...which I shall call:</b></h4>
                 <input type='search'
                     className='form-control'
                     value={this.props.name}
