@@ -23,8 +23,8 @@ export default class LanguageSelection extends React.Component<props, {}> {
         })
 
         return (
-            <div className='col-md-12' style={{ padding: '15px' }}>
-                <h4><b>...written in...</b></h4>
+            <div className='col-md-12' style={{ padding: '15px 0px' }}>
+                <h4 className='oswald-header' style={{ paddingLeft: '10px' }}><b>Written in...</b></h4>
                 {buttons}
             </div>
         )
