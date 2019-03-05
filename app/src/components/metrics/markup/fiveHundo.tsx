@@ -12,25 +12,37 @@ type state = {
 }
 
 export default class FourHundo extends React.Component<props, state> {
+    mounted = false
     constructor(props) {
         super(props)
         this.state = {
             fiveHundo: undefined
         }
+        
     }
 
     componentDidMount() {
+        this.mounted = true
         this.getFiveHundoErrors(this.props)
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({fiveHundo: undefined}, () => { this.getFiveHundoErrors(nextProps) })
+        if (this.mounted) {
+            this.setState({ fiveHundo: undefined }, () => { this.getFiveHundoErrors(nextProps) })
+        }
     }
 
+    componentWillUnmount() {
+        this.mounted = false
+    }
+    
     async getFiveHundoErrors(props) {
-        this.setState({
-            fiveHundo: await getMetrics(props.application.resourceGroup, props.application.name)
-        })
+        const fiveHundo = await getMetrics(props.application.resourceGroup, props.application.name)
+        if (this.mounted) {
+            this.setState({
+                fiveHundo: fiveHundo
+            })
+        }
     }
 
     render() {

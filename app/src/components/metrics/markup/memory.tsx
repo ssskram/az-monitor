@@ -12,6 +12,7 @@ type state = {
 }
 
 export default class FourHundo extends React.Component<props, state> {
+    mounted = false
     constructor(props) {
         super(props)
         this.state = {
@@ -19,10 +20,22 @@ export default class FourHundo extends React.Component<props, state> {
         }
     }
 
-    async componentDidMount() {
-        this.setState({
-            memory: await getMetrics(this.props.appService.name)
-        })
+    componentDidMount() {
+        this.mounted = true
+        this.getMemory(this.props)
+    }
+
+    componentWillUnmount() {
+        this.mounted = false
+    }
+    
+    async getMemory(props) {
+        const memory = await getMetrics(props.appService.name)
+        if (this.mounted) {
+            this.setState({
+                memory: memory
+            })
+        }
     }
 
     render() {

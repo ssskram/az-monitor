@@ -13,6 +13,7 @@ type state = {
 
 
 export default class Requests extends React.Component<props, state> {
+    mounted = false
     constructor(props) {
         super(props)
         this.state = {
@@ -22,17 +23,27 @@ export default class Requests extends React.Component<props, state> {
 
 
     componentDidMount() {
+        this.mounted = true
         this.getRequests(this.props)
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ requests: undefined }, () => { this.getRequests(nextProps) })
+        if (this.mounted) {
+            this.setState({ requests: undefined }, () => { this.getRequests(nextProps) })
+        }
     }
 
+    componentWillUnmount() {
+        this.mounted = false
+    }
+    
     async getRequests(props) {
-        this.setState({
-            requests: await getMetrics(props.application.resourceGroup, props.application.name)
-        })
+        const requests = await getMetrics(props.application.resourceGroup, props.application.name)
+        if (this.mounted) {
+            this.setState({
+                requests: requests
+            })
+        }
     }
 
     render() {

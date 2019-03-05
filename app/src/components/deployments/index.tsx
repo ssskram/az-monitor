@@ -34,6 +34,7 @@ const columns = [{
 }]
 
 export default class Deployments extends React.Component<props, state> {
+    mounted = false
     constructor(props) {
         super(props)
         this.state = {
@@ -42,17 +43,27 @@ export default class Deployments extends React.Component<props, state> {
     }
 
     componentDidMount() {
+        this.mounted = true
         this.getDeployments(this.props)
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({deployments: undefined}, () => { this.getDeployments(nextProps) })
+        if (this.mounted) {
+            this.setState({ deployments: undefined }, () => { this.getDeployments(nextProps) })
+        }
     }
 
+    componentWillUnmount() {
+        this.mounted = false
+    }
+    
     async getDeployments(props) {
-        this.setState({
-            deployments: await getDeployments(props.application.resourceGroup, props.application.name)
-        })
+        const deployments = await getDeployments(props.application.resourceGroup, props.application.name)
+        if (this.mounted) {
+            this.setState({
+                deployments: deployments
+            })
+        }
     }
 
     render() {

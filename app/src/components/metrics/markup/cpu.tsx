@@ -12,6 +12,7 @@ type state = {
 }
 
 export default class FourHundo extends React.Component<props, state> {
+    mounted = false
     constructor(props) {
         super(props)
         this.state = {
@@ -20,13 +21,21 @@ export default class FourHundo extends React.Component<props, state> {
     }
 
     componentDidMount() {
+        this.mounted = true
         this.getCPU(this.props)
     }
 
+    componentWillUnmount() {
+        this.mounted = false
+    }
+    
     async getCPU(props) {
-        this.setState({
-            cpu: await getMetrics(props.appService.name)
-        })
+        const cpu = await getMetrics(props.appService.name)
+        if (this.mounted) {
+            this.setState({
+                cpu: cpu
+            })
+        }
     }
 
     render() {

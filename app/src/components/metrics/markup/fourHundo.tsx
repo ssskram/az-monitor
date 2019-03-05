@@ -13,6 +13,7 @@ type state = {
 
 
 export default class FourHundo extends React.Component<props, state> {
+    mounted = false
     constructor(props) {
         super(props)
         this.state = {
@@ -21,17 +22,27 @@ export default class FourHundo extends React.Component<props, state> {
     }
 
     componentDidMount() {
+        this.mounted = true
         this.getFourHundoErrors(this.props)
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ fourHundo: undefined }, () => { this.getFourHundoErrors(nextProps) })
+        if (this.mounted) {
+            this.setState({ fourHundo: undefined }, () => { this.getFourHundoErrors(nextProps) })
+        }
     }
 
+    componentWillUnmount() {
+        this.mounted = false
+    }
+    
     async getFourHundoErrors(props) {
-        this.setState({
-            fourHundo: await getMetrics(props.application.resourceGroup, props.application.name)
-        })
+        const fourHundo = await getMetrics(props.application.resourceGroup, props.application.name)
+        if (this.mounted) {
+            this.setState({
+                fourHundo: fourHundo
+            })
+        }
     }
 
     render() {
