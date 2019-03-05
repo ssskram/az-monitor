@@ -3,7 +3,7 @@ import * as types from '../../../store/types'
 import Select from 'react-select'
 
 type props = {
-    setState: (stateObj: object) => void
+    getAppConfig: (appName: string) => void
     applications: types.application[]
     appName: string
 }
@@ -29,7 +29,7 @@ export default class ApplicationSelection extends React.Component<props, {}> {
                             <Select
                                 placeholder='Select application'
                                 value={this.props.appName ? { value: this.props.appName, label: this.props.appName } : null}
-                                onChange={f => this.props.setState({ appName: f.value })}
+                                onChange={f => this.props.getAppConfig(f.value)}
                                 options={this.dropdown()}
                             />
                         </div>

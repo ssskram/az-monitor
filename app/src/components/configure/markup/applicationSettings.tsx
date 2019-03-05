@@ -42,7 +42,8 @@ export default class ApplicationSettings extends React.Component<props, state> {
                     height='auto'
                     onChange={this.newObj.bind(this)}
                     style={{
-                        outerBox: { overflow: 'hidden' },
+                        outerBox: { width: '100%' },
+                        container: { overflow: 'visible' },
                         body: { padding: '10px 0px' }
                     }}
                 />

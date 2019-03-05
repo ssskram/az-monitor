@@ -27,6 +27,10 @@ export class Deploy extends React.Component<props, state> {
         }
     }
 
+    getApplicationConfig(appName) {
+        this.setState ({appName: appName})
+    }
+
     allApplications() {
         return this.props.apiApps.concat(this.props.clientApps).concat(this.props.serverlessApps)
     }
@@ -43,7 +47,7 @@ export class Deploy extends React.Component<props, state> {
                     <h2>Deploy <span style={{fontSize: '.5em'}}> from Github repo</span></h2>
                     <hr />
                         <AppSelection
-                            setState={this.setState.bind(this)}
+                            getAppConfig={this.getApplicationConfig.bind(this)}
                             applications={this.allApplications()}
                             appName={this.state.appName}
                         />

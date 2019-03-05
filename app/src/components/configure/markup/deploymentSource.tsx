@@ -3,6 +3,7 @@ import * as React from 'react'
 type props = {
     setState: (stateObj: object) => void
     deploymentSource: string
+    branch: string
     setDeploymentSource: () => void
 }
 
@@ -27,13 +28,24 @@ export default class DeploymentSource extends React.Component<props, state> {
         return (
             <div className='col-md-12' style={{ padding: '15px' }}>
                 <h4 className='oswald-header'><b>Deployment source</b></h4>
+                {!this.state.disabled &&
+                    <div style={{ fontSize: '.8em', padding: '2px' }}>Note: This must be the url to a public repository</div>
+                }
                 <input type='search'
                     className='form-control'
                     value={this.props.deploymentSource}
                     placeholder="Github repository"
                     disabled={this.state.disabled}
                     onChange={e => this.props.setState({ deploymentSource: e.target.value })}
-                    style={{ maxWidth: '500px' }}>
+                    style={{ maxWidth: '500px', margin: '3px 0px' }}>
+                </input>
+                <input type='search'
+                    className='form-control'
+                    value={this.props.branch}
+                    placeholder="Branch"
+                    disabled={this.state.disabled}
+                    onChange={e => this.props.setState({ branch: e.target.value })}
+                    style={{ maxWidth: '500px', margin: '3px 0px' }}>
                 </input>
                 {this.state.disabled &&
                     <button
@@ -45,7 +57,6 @@ export default class DeploymentSource extends React.Component<props, state> {
                 }
                 {!this.state.disabled &&
                     <div>
-                        <div style={{ fontSize: '.8em', padding: '2px' }}>Note: This must be the url to a public repository</div>
                         <button
                             className='btn btn-success'
                             style={btnStyle}

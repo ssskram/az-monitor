@@ -9,6 +9,8 @@ import DeploymentSource from './markup/deploymentSource'
 import AppSelection from './markup/applicationSelection'
 import AppSettings from './markup/applicationSettings'
 import HydrateStore from '../utilities/hydrateStore'
+import getSourceControl from './functions/getSource'
+import getAppSettings from './functions/getAppSettings'
 
 type props = {
     apiApps: types.application[],
@@ -19,7 +21,13 @@ type props = {
 type state = {
     appName: string
     deploymentSource: string
+    branch: string
     appSettings: any
+}
+
+type sourceControl = {
+    repo: string
+    branch: string
 }
 
 export class Configure extends React.Component<props, state> {
@@ -28,15 +36,25 @@ export class Configure extends React.Component<props, state> {
         this.state = {
             appName: undefined,
             deploymentSource: undefined,
-            appSettings: {
-                apiKey1: 'e95ac7d2-3f74-11e9-b210-d663bd873d93',
-                apiKey2: 'f52d1bd2-3f74-11e9-b210-d663bd873d93'
-            }
+            branch: undefined,
+            appSettings: undefined
         }
     }
 
     allApplications() {
         return this.props.apiApps.concat(this.props.clientApps).concat(this.props.serverlessApps)
+    }
+    
+    async getApplicationConfig(appName) {
+        const app = this.allApplications().find(i => i.name == appName)
+        const source: sourceControl = await getSourceControl(app)
+        const appSettings: any = await getAppSettings(app)
+        this.setState({
+            appName: appName,
+            deploymentSource: source.repo,
+            branch: source.branch,
+            appSettings: appSettings.settings
+        })
     }
 
     setDeploymentSource() {
@@ -55,13 +73,14 @@ export class Configure extends React.Component<props, state> {
                     <h2>Configure</h2>
                     <hr />
                     <AppSelection
-                        setState={this.setState.bind(this)}
+                        getAppConfig={this.getApplicationConfig.bind(this)}
                         applications={this.allApplications()}
                         appName={this.state.appName}
                     />
                     <DeploymentSource
                         setState={this.setState.bind(this)}
                         deploymentSource={this.state.deploymentSource}
+                        branch={this.state.branch}
                         setDeploymentSource={this.setDeploymentSource.bind(this)}
                     />
                     <AppSettings
