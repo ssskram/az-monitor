@@ -9,9 +9,10 @@ type props = {
 export default class AppType extends React.Component<props, {}> {
 
     render() {
-        const buttons = constants.types.map(type => {
+        const buttons = constants.types.map((type, index) => {
             return (
                 <button
+                    key={index}
                     onClick={() => this.props.setState({ type: type.value })}
                     className='btn btn-secondary'
                     style={this.props.type == type.value ? { backgroundColor: 'rgba(75,192,192,.5)' } : null}>

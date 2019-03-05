@@ -38,25 +38,22 @@ export default class Provision extends React.Component<props, state> {
                 <div className='panel panel-body'>
                     <h2>Provision a new service</h2>
                     <hr />
-                    <div className='col-md-8 col-md-offset-2'>
-                        <AppTypeSelection
-                            setState={this.setState.bind(this)}
-                            type={this.state.type}
-                        />
-                        <LanguageSelection
-                            setState={this.setState.bind(this)}
-                            language={this.state.language}
-                        />
-                        <AppName
-                            setState={this.setState.bind(this)}
-                            name={this.state.name}
-                        />
-                        <SubmitButton
-                            post={this.post.bind(this)}
-                            isEnabled={isEnabled}
-                        />
-
-                    </div>
+                    <AppTypeSelection
+                        setState={this.setState.bind(this)}
+                        type={this.state.type}
+                    />
+                    <LanguageSelection
+                        setState={this.setState.bind(this)}
+                        language={this.state.language}
+                    />
+                    <AppName
+                        setState={this.setState.bind(this)}
+                        name={this.state.name}
+                    />
+                    <SubmitButton
+                        post={this.post.bind(this)}
+                        isEnabled={isEnabled}
+                    />
                 </div>
             </div>
         )
