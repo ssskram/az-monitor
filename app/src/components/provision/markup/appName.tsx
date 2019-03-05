@@ -23,7 +23,7 @@ export default class AppName extends React.Component<props, {}> {
                     value={this.props.name}
                     placeholder="Enter a name for the application"
                     onChange={e => this.validateString(e.target.value)}
-                    style={{ maxWidth: '400px' }}>
+                    style={{ maxWidth: '400px', marginLeft: '5px' }}>
                 </input>
             </div>
         )

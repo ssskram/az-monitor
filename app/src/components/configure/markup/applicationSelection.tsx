@@ -25,22 +25,15 @@ export default class ApplicationSelection extends React.Component<props, {}> {
                 <div className='row'>
                     <div className={'col-md-12'} style={{ margin: '10px 0px' }}>
                         <h4 className='oswald-header'><b>Application</b></h4>
-                        <Select
-                            placeholder='Select application'
-                            value={this.props.appName ? { value: this.props.appName, label: this.props.appName } : null}
-                            onChange={f => this.props.setState({ appName: f.value })}
-                            options={this.dropdown()}
-                        />
-                    </div>
-                    {this.props.appName &&
-                        <div className='col-sm-12'>
-                            <button
-                                className='btn btn-warning'
-                                onClick={() => this.props.setState({ appName: undefined })}
-                                style={{ width: '100%', margin: '0px' }}
-                            >Select different application</button>
+                        <div style={{ maxWidth: '500px' }}>
+                            <Select
+                                placeholder='Select application'
+                                value={this.props.appName ? { value: this.props.appName, label: this.props.appName } : null}
+                                onChange={f => this.props.setState({ appName: f.value })}
+                                options={this.dropdown()}
+                            />
                         </div>
-                    }
+                    </div>
                 </div>
             </div>
         )

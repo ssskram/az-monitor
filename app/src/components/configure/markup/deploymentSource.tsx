@@ -33,7 +33,7 @@ export default class DeploymentSource extends React.Component<props, state> {
                     placeholder="Github repository"
                     disabled={this.state.disabled}
                     onChange={e => this.props.setState({ deploymentSource: e.target.value })}
-                    style={{ maxWidth: '600px' }}>
+                    style={{ maxWidth: '500px' }}>
                 </input>
                 {this.state.disabled &&
                     <button

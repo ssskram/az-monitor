@@ -13,7 +13,7 @@ import HydrateStore from '../utilities/hydrateStore'
 type props = {
     apiApps: types.application[],
     clientApps: types.application[],
-    serverlessApps: types.application[],
+    serverlessApps: types.application[]
 }
 
 type state = {
@@ -52,29 +52,23 @@ export class Configure extends React.Component<props, state> {
             <div className='col-md-8 col-md-offset-2' style={{ marginBottom: '50px' }}>
                 <HydrateStore />
                 <div className='panel panel-body'>
-                    <h2>Configure a service</h2>
+                    <h2>Configure</h2>
                     <hr />
-                    <div className='col-md-8 col-md-offset-2'>
-                        <AppSelection
-                            setState={this.setState.bind(this)}
-                            applications={this.allApplications()}
-                            appName={this.state.appName}
-                        />
-                        {this.state.appName &&
-                            <div>
-                                <DeploymentSource
-                                    setState={this.setState.bind(this)}
-                                    deploymentSource={this.state.deploymentSource}
-                                    setDeploymentSource={this.setDeploymentSource.bind(this)}
-                                />
-                                <AppSettings
-                                    setState={this.setState.bind(this)}
-                                    appSettings={this.state.appSettings}
-                                    setAppSettings={this.setAppSettings.bind(this)}
-                                />
-                            </div>
-                        }
-                    </div>
+                    <AppSelection
+                        setState={this.setState.bind(this)}
+                        applications={this.allApplications()}
+                        appName={this.state.appName}
+                    />
+                    <DeploymentSource
+                        setState={this.setState.bind(this)}
+                        deploymentSource={this.state.deploymentSource}
+                        setDeploymentSource={this.setDeploymentSource.bind(this)}
+                    />
+                    <AppSettings
+                        setState={this.setState.bind(this)}
+                        appSettings={this.state.appSettings}
+                        setAppSettings={this.setAppSettings.bind(this)}
+                    />
                 </div>
             </div>
         )

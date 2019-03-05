@@ -36,7 +36,7 @@ export default class Provision extends React.Component<props, state> {
         return (
             <div className='col-md-8 col-md-offset-2' style={{ marginBottom: '50px' }}>
                 <div className='panel panel-body'>
-                    <h2>Provision a new service</h2>
+                    <h2>Provision</h2>
                     <hr />
                     <AppTypeSelection
                         setState={this.setState.bind(this)}
