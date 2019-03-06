@@ -1,8 +1,13 @@
 import * as React from 'react'
-import * as types from '../../store/types'
-import ApplicationCard from '../shared/applicationCard'
-import Paging from '../utilities/paging'
-import Filter from '../filter'
+import { connect } from 'react-redux'
+import { ApplicationState } from '../../../store'
+import * as clientApps from '../../../store/clientApps'
+import * as types from '../../../store/types'
+import ApplicationCard from '../../shared/applicationCard'
+import Paging from '../../utilities/paging'
+import Filter from '../../filter'
+import NavButtons from '../../serviceTypeSelection'
+import HydrateStore from '../../utilities/hydrateStore'
 
 type props = {
     clientApps: types.application[]
@@ -13,7 +18,7 @@ type state = {
     clientApps: any
 }
 
-export default class ClientApplications extends React.Component<props, state> {
+export class ClientApplications extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
@@ -22,12 +27,19 @@ export default class ClientApplications extends React.Component<props, state> {
         }
     }
 
-    componentWillReceiveProps(nextProps) { this.setState({ clientApps: nextProps.clientApps }) }
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
+    componentWillReceiveProps(nextProps) { 
+        this.setState({ clientApps: nextProps.clientApps }) 
+    }
+
     filter(appName) {
         if (appName) {
-            this.setState({ 
+            this.setState({
                 currentPage: 1,
-                clientApps: this.props.clientApps.filter(app => app.name == appName) 
+                clientApps: this.props.clientApps.filter(app => app.name == appName)
             })
         } else this.setState({ clientApps: this.props.clientApps })
     }
@@ -39,7 +51,7 @@ export default class ClientApplications extends React.Component<props, state> {
         const indexOfFirstItem = indexOfLastItem - 5;
         const currentItems = this.state.clientApps.slice(indexOfFirstItem, indexOfLastItem);
         const renderItems = currentItems.map((item, index) => {
-            return <ApplicationCard key={index} application={item} type='client'/>
+            return <ApplicationCard key={index} application={item} type='client' />
         })
 
         // Logic for displaying page numbers
@@ -49,7 +61,11 @@ export default class ClientApplications extends React.Component<props, state> {
         }
 
         return <div>
-            <Filter 
+            <HydrateStore />
+            <NavButtons
+                currentModule='clientapps'
+            />
+            <Filter
                 filter={this.filter.bind(this)}
                 applications={this.props.clientApps}
             />
@@ -64,3 +80,12 @@ export default class ClientApplications extends React.Component<props, state> {
         </div>
     }
 }
+
+export default connect(
+    (state: ApplicationState) => ({
+        ...state.clientApps
+    }),
+    ({
+        ...clientApps.actionCreators
+    })
+)(ClientApplications as any)

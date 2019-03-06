@@ -31,7 +31,7 @@ export default class DeploymentSource extends React.Component<props, state> {
                 {!this.state.disabled &&
                     <div style={{ fontSize: '.8em', padding: '2px' }}>Note: This must be the url to a public repository</div>
                 }
-                <input type='search'
+                <input
                     className='form-control'
                     value={this.props.deploymentSource}
                     placeholder="Github repository"
@@ -39,7 +39,7 @@ export default class DeploymentSource extends React.Component<props, state> {
                     onChange={e => this.props.setState({ deploymentSource: e.target.value })}
                     style={{ maxWidth: '500px', margin: '3px 0px' }}>
                 </input>
-                <input type='search'
+                <input
                     className='form-control'
                     value={this.props.branch}
                     placeholder="Branch"
@@ -51,7 +51,8 @@ export default class DeploymentSource extends React.Component<props, state> {
                     <button
                         className='btn btn-secondary'
                         style={btnStyle}
-                        onClick={() => this.setState({ disabled: false })}>
+                        onClick={() => this.setState({ disabled: false })}
+                        disabled={this.props.branch == '' && this.props.deploymentSource == ''}>
                         Edit deployment source
                     </button>
                 }

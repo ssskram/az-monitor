@@ -1,17 +1,17 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { ApplicationState } from '../../store'
-import * as apiApps from '../../store/apiApplications'
-import * as clientApps from '../../store/clientApps'
-import * as serverlessApps from '../../store/serverlessApps'
-import * as types from '../../store/types'
+import { ApplicationState } from '../../../store'
+import * as apiApps from '../../../store/apiApplications'
+import * as clientApps from '../../../store/clientApps'
+import * as serverlessApps from '../../../store/serverlessApps'
+import * as types from '../../../store/types'
 import DeploymentSource from './markup/deploymentSource'
 import AppSelection from './markup/applicationSelection'
 import AppSettings from './markup/applicationSettings'
-import HydrateStore from '../utilities/hydrateStore'
+import HydrateStore from '../../utilities/hydrateStore'
 import getSourceControl from './functions/getSource'
 import getAppSettings from './functions/getAppSettings'
-import AccessControl from '../accessControl'
+import AccessControl from '../../accessControl'
 
 type props = {
     apiApps: types.application[],
@@ -31,8 +31,8 @@ export class Configure extends React.Component<props, state> {
         super(props)
         this.state = {
             appName: undefined,
-            deploymentSource: undefined,
-            branch: undefined,
+            deploymentSource: '',
+            branch: '',
             appSettings: {
                 select: "application"
             }
@@ -43,15 +43,23 @@ export class Configure extends React.Component<props, state> {
         return this.props.apiApps.concat(this.props.clientApps).concat(this.props.serverlessApps)
     }
 
-    async getApplicationConfig(appName) {
-        const app = this.allApplications().find(i => i.name == appName)
-        const source: types.sourceControl = await getSourceControl(app)
-        const appSettings: any = await getAppSettings(app)
+    getApplicationConfig(appName) {
         this.setState({
             appName: appName,
-            deploymentSource: source.repo,
-            branch: source.branch,
-            appSettings: appSettings.settings
+            branch: '',
+            deploymentSource: '',
+            appSettings: {
+                loading: "application"
+            }
+        }, async () => {
+            const app = this.allApplications().find(i => i.name == appName)
+            const source: types.sourceControl = await getSourceControl(app)
+            const appSettings: any = await getAppSettings(app)
+            this.setState({
+                deploymentSource: source.repo,
+                branch: source.branch,
+                appSettings: appSettings.settings
+            })
         })
     }
 

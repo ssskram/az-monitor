@@ -1,7 +1,7 @@
 import * as React from 'react'
-import * as types from '../../../store/types'
-import CPU from '../../metrics/markup/cpu'
-import Memory from '../../metrics/markup/memory'
+import * as types from '../../../../store/types'
+import CPU from '../../../metrics/markup/cpu'
+import Memory from '../../../metrics/markup/memory'
 
 type props = {
     appService: types.appService

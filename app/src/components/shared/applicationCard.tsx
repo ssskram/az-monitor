@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as types from '../../store/types'
-import Deployments from '../deployments'
+import Deployments from '../metrics/markup/deployments'
 import Requests from '../metrics/markup/requests'
 import FourHundo from '../metrics/markup/fourHundo'
 import FiveHundo from '../metrics/markup/fiveHundo'

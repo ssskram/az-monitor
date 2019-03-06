@@ -3,7 +3,7 @@ import AppTypeSelection from './markup/appType'
 import LanguageSelection from './markup/languageType'
 import AppName from './markup/appName'
 import SubmitButton from './markup/submit'
-import AccessControl from '../accessControl'
+import AccessControl from '../../accessControl'
 
 type props = {
 }

@@ -1,8 +1,13 @@
 import * as React from 'react'
-import * as types from '../../store/types'
-import ApplicationCard from '../shared/applicationCard'
-import Paging from '../utilities/paging'
-import Filter from '../filter'
+import { connect } from 'react-redux'
+import { ApplicationState } from '../../../store'
+import * as apiApps from '../../../store/apiApplications'
+import * as types from '../../../store/types'
+import ApplicationCard from '../../shared/applicationCard'
+import Paging from '../../utilities/paging'
+import Filter from '../../filter'
+import NavButtons from '../../serviceTypeSelection'
+import HydrateStore from '../../utilities/hydrateStore'
 
 type props = {
     apiApps: types.application[]
@@ -13,7 +18,7 @@ type state = {
     apiApps: types.application[]
 }
 
-export default class APIs extends React.Component<props, state> {
+export class APIs extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
@@ -22,12 +27,19 @@ export default class APIs extends React.Component<props, state> {
         }
     }
 
-    componentWillReceiveProps(nextProps) { this.setState({ apiApps: nextProps.apiApps }) }
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ apiApps: nextProps.apiApps })
+    }
+
     filter(appName) {
         if (appName) {
-            this.setState({ 
+            this.setState({
                 currentPage: 1,
-                apiApps: this.props.apiApps.filter(app => app.name == appName) 
+                apiApps: this.props.apiApps.filter(app => app.name == appName)
             })
         } else this.setState({ apiApps: this.props.apiApps })
     }
@@ -49,6 +61,10 @@ export default class APIs extends React.Component<props, state> {
         }
 
         return <div>
+            <HydrateStore />
+            <NavButtons
+                currentModule='apis'
+            />
             <Filter
                 applications={this.state.apiApps}
                 filter={this.filter.bind(this)}
@@ -64,3 +80,12 @@ export default class APIs extends React.Component<props, state> {
         </div>
     }
 }
+
+export default connect(
+    (state: ApplicationState) => ({
+        ...state.apiApps
+    }),
+    ({
+        ...apiApps.actionCreators
+    })
+)(APIs as any)

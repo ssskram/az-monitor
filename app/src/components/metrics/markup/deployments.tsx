@@ -1,6 +1,6 @@
 import * as React from 'react'
-import * as types from '../../store/types'
-import getDeployments from './functions/getDeployments'
+import * as types from '../../../store/types'
+import getDeployments from '../functions/getDeployments'
 import ReactTable from "react-table"
 import "react-table/react-table.css"
 
