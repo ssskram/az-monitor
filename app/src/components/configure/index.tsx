@@ -38,7 +38,9 @@ export class Configure extends React.Component<props, state> {
             appName: undefined,
             deploymentSource: undefined,
             branch: undefined,
-            appSettings: undefined
+            appSettings: {
+                select: "application"
+            }
         }
     }
 

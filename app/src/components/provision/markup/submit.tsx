@@ -15,7 +15,7 @@ export default class Submit extends React.Component<props, {}> {
                     disabled={!this.props.isEnabled}
                     onClick={() => this.props.post()}
                     style={{ marginLeft: '5px' }}>
-                    Provision it!
+                    Provision
                 </button>
             </div>
         )

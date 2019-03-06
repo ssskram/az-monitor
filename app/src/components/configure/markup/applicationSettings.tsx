@@ -40,10 +40,9 @@ export default class ApplicationSettings extends React.Component<props, state> {
                     viewOnly={this.state.disabled}
                     confirmGood={false}
                     height='auto'
+                    width='auto'
                     onChange={this.newObj.bind(this)}
                     style={{
-                        outerBox: { width: '100%' },
-                        container: { overflow: 'visible' },
                         body: { padding: '10px 0px' }
                     }}
                 />
