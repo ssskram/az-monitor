@@ -27,8 +27,11 @@ export default class FourHundo extends React.Component<props, state> {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.application.name != this.props.application.name) {
+            this.setState({ fiveHundo: undefined })
+        }
         if (this.mounted) {
-            this.setState({ fiveHundo: undefined }, () => { this.getFiveHundoErrors(nextProps) })
+            this.getFiveHundoErrors(nextProps)
         }
     }
 

@@ -60,7 +60,7 @@ export class ClientApplications extends React.Component<props, state> {
             pageNumbers.push(i);
         }
 
-        return <div>
+        return <div className='col-md-10 col-md-offset-1'>
             <HydrateStore />
             <NavButtons
                 currentModule='clientapps'

@@ -19,7 +19,7 @@ export class AppServices extends React.Component<props, any> {
 
     render() {
         return (
-            <div>
+            <div className='col-md-10 col-md-offset-1' style={{ marginBottom: '50px' }}>
                 <HydrateStore />
                 <NavButtons
                     currentModule='appservices'

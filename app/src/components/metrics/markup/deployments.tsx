@@ -48,15 +48,18 @@ export default class Deployments extends React.Component<props, state> {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.application.name != this.props.application.name) {
+            this.setState({ deployments: undefined })
+        }
         if (this.mounted) {
-            this.setState({ deployments: undefined }, () => { this.getDeployments(nextProps) })
+            this.getDeployments(nextProps)
         }
     }
 
     componentWillUnmount() {
         this.mounted = false
     }
-    
+
     async getDeployments(props) {
         const deployments = await getDeployments(props.application.resourceGroup, props.application.name)
         if (this.mounted) {

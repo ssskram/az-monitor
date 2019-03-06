@@ -21,22 +21,24 @@ export default class Requests extends React.Component<props, state> {
         }
     }
 
-
     componentDidMount() {
         this.mounted = true
         this.getRequests(this.props)
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps, nextState) {
+        if (nextProps.application.name != this.props.application.name) {
+            this.setState({ requests: undefined })
+        }
         if (this.mounted) {
-            this.setState({ requests: undefined }, () => { this.getRequests(nextProps) })
+            this.getRequests(nextProps)
         }
     }
 
     componentWillUnmount() {
         this.mounted = false
     }
-    
+
     async getRequests(props) {
         const requests = await getMetrics(props.application.resourceGroup, props.application.name)
         if (this.mounted) {
