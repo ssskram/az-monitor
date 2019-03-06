@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as types from '../../../store/types'
 import getDeployments from '../functions/getDeployments'
+import getSource from '../../manage/configure/functions/getSource'
 import ReactTable from "react-table"
 import "react-table/react-table.css"
 
@@ -10,6 +11,7 @@ type props = {
 
 type state = {
     deployments: types.deployment[]
+    source: string
 }
 
 const columns = [{
@@ -38,7 +40,8 @@ export default class Deployments extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
-            deployments: undefined
+            deployments: undefined,
+            source: undefined
         }
     }
 
@@ -62,25 +65,30 @@ export default class Deployments extends React.Component<props, state> {
 
     async getDeployments(props) {
         const deployments = await getDeployments(props.application.resourceGroup, props.application.name)
+        const source = await getSource(props.application)
         if (this.mounted) {
             this.setState({
-                deployments: deployments
+                deployments: deployments,
+                source: source.repo
             })
         }
     }
 
     render() {
         return (
-            <ReactTable
-                data={this.state.deployments}
-                columns={columns}
-                loading={false}
-                minRows={3}
-                pageSize={3}
-                showPageJump={false}
-                showPageSizeOptions={false}
-                noDataText='...loading deployment history...'
-            />
+            <div>
+                <ReactTable
+                    data={this.state.deployments}
+                    columns={columns}
+                    loading={false}
+                    minRows={3}
+                    pageSize={3}
+                    showPageJump={false}
+                    showPageSizeOptions={false}
+                    noDataText='...loading deployment history...'
+                />
+                <div className='text-center'> {this.state.source ? <a href={this.state.source} target='_blank'>View source code</a> : null}</div>
+            </div>
         )
     }
 }

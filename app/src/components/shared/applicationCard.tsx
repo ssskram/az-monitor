@@ -15,7 +15,7 @@ export default class ApplicationCard extends React.Component<props, {}> {
     render() {
         const {
             application
-        } = this.props        
+        } = this.props
         return (
             <div className='panel'>
                 <div className='panel-body'>
@@ -30,12 +30,7 @@ export default class ApplicationCard extends React.Component<props, {}> {
                         <div className='col-md-9 ubuntu' style={{ marginBottom: '25px' }}>
                             <div className='row'>
                                 <div className='col-md-12'>
-                                    <div className='pull-right'>
-                                        <a href={this.props.type == 'api' ? 'https://' + application.url + '/docs' : "https://" + application.url} target='_blank'>{this.props.type == 'api' ? application.url + '/docs' : application.url}</a>
-                                    </div>
-                                    <div className='pull-left'>
-                                        <b>Deployments</b>
-                                    </div>
+                                    Deployments <a href={this.props.type == 'api' ? 'https://' + application.url + '/docs' : "https://" + application.url} target='_blank'>{this.props.type == 'api' ? application.url + '/docs' : application.url}</a>
                                 </div>
                             </div>
                             <Deployments
