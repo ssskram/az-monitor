@@ -26,11 +26,6 @@ type state = {
     appSettings: any
 }
 
-type sourceControl = {
-    repo: string
-    branch: string
-}
-
 export class Configure extends React.Component<props, state> {
     constructor(props) {
         super(props)
@@ -50,7 +45,7 @@ export class Configure extends React.Component<props, state> {
 
     async getApplicationConfig(appName) {
         const app = this.allApplications().find(i => i.name == appName)
-        const source: sourceControl = await getSourceControl(app)
+        const source: types.sourceControl = await getSourceControl(app)
         const appSettings: any = await getAppSettings(app)
         this.setState({
             appName: appName,

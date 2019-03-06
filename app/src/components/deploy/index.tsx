@@ -9,6 +9,8 @@ import AppSelection from '../configure/markup/applicationSelection'
 import Button from './markup/deployBtn'
 import HydrateStore from '../utilities/hydrateStore'
 import AccessControl from '../accessControl'
+import getSourceControl from '../configure/functions/getSource'
+import DeploymentSource from './markup/deploymentSettings'
 
 type props = {
     apiApps: types.application[],
@@ -17,23 +19,34 @@ type props = {
 }
 
 type state = {
-    appName: string
+    appName: string,
+    deploymentSource: string
+    branch: string
 }
 
 export class Deploy extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
-            appName: undefined
+            appName: undefined,
+            branch: undefined,
+            deploymentSource: undefined
         }
-    }
-
-    getApplicationConfig(appName) {
-        this.setState({ appName: appName })
     }
 
     allApplications() {
         return this.props.apiApps.concat(this.props.clientApps).concat(this.props.serverlessApps)
+    }
+
+    getApplicationConfig(appName) {
+        this.setState({ appName: appName }, async () => {
+            const app = this.allApplications().find(i => i.name == appName)
+            const source: types.sourceControl = await getSourceControl(app)
+            this.setState({
+                deploymentSource: source.repo,
+                branch: source.branch,
+            })
+        })
     }
 
     deploy() {
@@ -41,6 +54,11 @@ export class Deploy extends React.Component<props, state> {
     }
 
     render() {
+        const isEnabled =
+            this.state.appName != undefined &&
+            this.state.deploymentSource != undefined &&
+            this.state.branch != undefined
+
         return (
             <div className='col-md-8 col-md-offset-2' style={{ marginBottom: '50px' }}>
                 <AccessControl />
@@ -53,8 +71,14 @@ export class Deploy extends React.Component<props, state> {
                         applications={this.allApplications()}
                         appName={this.state.appName}
                     />
+                    {this.state.deploymentSource && this.state.branch &&
+                        <DeploymentSource
+                            url={this.state.deploymentSource}
+                            branch={this.state.branch}
+                        />
+                    }
                     <Button
-                        isEnabled={this.state.appName != undefined}
+                        isEnabled={isEnabled}
                         deploy={this.deploy.bind(this)}
                     />
                 </div>

@@ -34,7 +34,7 @@ export default class ApplicationSettings extends React.Component<props, state> {
             <div className='col-md-12' style={{ padding: '15px' }}>
                 <h4 className='oswald-header'><b>Environment variables</b></h4>
                 <JSONInput
-                    id='a_unique_id'
+                    id='json'
                     placeholder={this.props.appSettings}
                     locale={locale}
                     viewOnly={this.state.disabled}

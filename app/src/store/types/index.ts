@@ -56,3 +56,9 @@ export interface deployment {
     completed: string
     active: boolean
 }
+
+// source control
+export interface sourceControl {
+    repo: string
+    branch: string
+}
