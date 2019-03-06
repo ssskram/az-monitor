@@ -11,6 +11,7 @@ import AppSettings from './markup/applicationSettings'
 import HydrateStore from '../utilities/hydrateStore'
 import getSourceControl from './functions/getSource'
 import getAppSettings from './functions/getAppSettings'
+import AccessControl from '../accessControl'
 
 type props = {
     apiApps: types.application[],
@@ -44,7 +45,7 @@ export class Configure extends React.Component<props, state> {
     allApplications() {
         return this.props.apiApps.concat(this.props.clientApps).concat(this.props.serverlessApps)
     }
-    
+
     async getApplicationConfig(appName) {
         const app = this.allApplications().find(i => i.name == appName)
         const source: sourceControl = await getSourceControl(app)
@@ -68,6 +69,7 @@ export class Configure extends React.Component<props, state> {
     render() {
         return (
             <div className='col-md-8 col-md-offset-2' style={{ marginBottom: '50px' }}>
+                <AccessControl />
                 <HydrateStore />
                 <div className='panel panel-body'>
                     <h2>Configure</h2>

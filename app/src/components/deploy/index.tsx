@@ -8,6 +8,7 @@ import * as types from '../../store/types'
 import AppSelection from '../configure/markup/applicationSelection'
 import Button from './markup/deployBtn'
 import HydrateStore from '../utilities/hydrateStore'
+import AccessControl from '../accessControl'
 
 type props = {
     apiApps: types.application[],
@@ -28,7 +29,7 @@ export class Deploy extends React.Component<props, state> {
     }
 
     getApplicationConfig(appName) {
-        this.setState ({appName: appName})
+        this.setState({ appName: appName })
     }
 
     allApplications() {
@@ -42,19 +43,20 @@ export class Deploy extends React.Component<props, state> {
     render() {
         return (
             <div className='col-md-8 col-md-offset-2' style={{ marginBottom: '50px' }}>
+                <AccessControl />
                 <HydrateStore />
                 <div className='panel panel-body'>
-                    <h2>Deploy <span style={{fontSize: '.5em'}}> from Github repo</span></h2>
+                    <h2>Deploy <span style={{ fontSize: '.5em' }}> from Github repo</span></h2>
                     <hr />
-                        <AppSelection
-                            getAppConfig={this.getApplicationConfig.bind(this)}
-                            applications={this.allApplications()}
-                            appName={this.state.appName}
-                        />
-                        <Button
-                            isEnabled={this.state.appName != undefined}
-                            deploy={this.deploy.bind(this)}
-                        />
+                    <AppSelection
+                        getAppConfig={this.getApplicationConfig.bind(this)}
+                        applications={this.allApplications()}
+                        appName={this.state.appName}
+                    />
+                    <Button
+                        isEnabled={this.state.appName != undefined}
+                        deploy={this.deploy.bind(this)}
+                    />
                 </div>
             </div>
         )

@@ -23,22 +23,3 @@
     background-color: #D0CFCF;
     border-color: #D0CFCF;
 }
-
-.btn.disabled,
-.btn[disabled],
-fieldset[disabled] .btn {
-    /* font */
-    color: #383838;
-    font-size: 18px;
-    font-family: 'Raleway', sans-serif;
-    /* remove blue underline */
-    text-decoration: none;
-    /* border */
-    border: 0px;
-    /* transitions */
-    transition: all .3s ease 0s;
-    /* other */
-    background-color: rgba(202, 205, 206, .35);
-    padding: 10px 30px;
-    margin: 7px;
-}

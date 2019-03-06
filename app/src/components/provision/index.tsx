@@ -3,6 +3,7 @@ import AppTypeSelection from './markup/appType'
 import LanguageSelection from './markup/languageType'
 import AppName from './markup/appName'
 import SubmitButton from './markup/submit'
+import AccessControl from '../accessControl'
 
 type props = {
 }
@@ -35,6 +36,7 @@ export default class Provision extends React.Component<props, state> {
 
         return (
             <div className='col-md-8 col-md-offset-2' style={{ marginBottom: '50px' }}>
+                <AccessControl />
                 <div className='panel panel-body'>
                     <h2>Provision</h2>
                     <hr />
