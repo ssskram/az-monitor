@@ -35,8 +35,8 @@ export default class ClientApplications extends React.Component<props, state> {
     render() {
 
         // Logic for paging
-        const indexOfLastItem = this.state.currentPage * 10
-        const indexOfFirstItem = indexOfLastItem - 10;
+        const indexOfLastItem = this.state.currentPage * 5
+        const indexOfFirstItem = indexOfLastItem - 5;
         const currentItems = this.state.clientApps.slice(indexOfFirstItem, indexOfLastItem);
         const renderItems = currentItems.map((item, index) => {
             return <ApplicationCard key={index} application={item} type='client'/>
@@ -44,7 +44,7 @@ export default class ClientApplications extends React.Component<props, state> {
 
         // Logic for displaying page numbers
         const pageNumbers: any[] = []
-        for (let i = 1; i <= Math.ceil(this.state.clientApps.length / 10); i++) {
+        for (let i = 1; i <= Math.ceil(this.state.clientApps.length / 5); i++) {
             pageNumbers.push(i);
         }
 

@@ -22,7 +22,7 @@ export default class Paging extends React.Component<any, any> {
 
         return (
             <div>
-                {countItems.length > 10 &&
+                {countItems.length > 5 &&
                     <div>
                         {(currentPage - 1 == 0) && (totalPages.includes(currentPage + 1)) &&
                             <div className='row'>

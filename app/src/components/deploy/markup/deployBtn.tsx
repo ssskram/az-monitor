@@ -11,11 +11,11 @@ export default class Button extends React.Component<props, {}> {
         return (
             <div className='col-md-12' style={{ marginBottom: '40px' }}>
                 <button
-                    className='btn btn-success'
+                    className='btn btn-success btn-deploy'
                     disabled={!this.props.isEnabled}
                     onClick={() => this.props.deploy()}
-                    style={{ padding: '25px 50px', margin: '0px' }}>
-                    <span className='oswald-header'>Deploy it</span>
+                    style={{ margin: '0px' }}>
+                    Deploy
                 </button>
             </div>
         )

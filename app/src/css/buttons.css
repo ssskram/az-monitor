@@ -23,3 +23,14 @@
     background-color: #D0CFCF;
     border-color: #D0CFCF;
 }
+
+.btn-success {
+    opacity: 0.8;
+}
+
+.btn-deploy {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    letter-spacing: 1px;
+}

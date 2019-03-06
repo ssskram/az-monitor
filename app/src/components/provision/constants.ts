@@ -11,14 +11,18 @@ export const types = [{
 
 export const languages = [{
     value: 'Javascript',
-    description: "The hipster's favorite"
-}, {
-    value: 'Java',
-    description: "The geek's favorite"
-}, {
-    value: 'Python',
-    description: "GSPIA's favorite"
+    description: "The hipster's favorite",
+    enabled: true
 }, {
     value: 'C#',
-    description: "Grandpa's favorite"
+    description: "Grandpa's favorite",
+    enabled: true
+}, {
+    value: 'Java',
+    description: "The geek's favorite",
+    enabled: false
+}, {
+    value: 'Python',
+    description: "GSPIA's favorite",
+    enabled: false
 }]

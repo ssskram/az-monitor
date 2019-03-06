@@ -15,6 +15,8 @@ export default class LanguageSelection extends React.Component<props, {}> {
                     key={index}
                     onClick={() => this.props.setState({ language: lang.value })}
                     className='btn btn-secondary'
+                    disabled={!lang.enabled}
+                    title={lang.enabled ? null : 'In the works, dude'}
                     style={this.props.language == lang.value ? { backgroundColor: 'rgba(75,192,192,.5)' } : null}>
                     <h4 className='oswald-header'>{lang.value}</h4>
                     <div>{lang.description}</div>
