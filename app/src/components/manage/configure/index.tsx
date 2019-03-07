@@ -13,6 +13,8 @@ import getSourceControl from './functions/getSource'
 import getAppSettings from './functions/getAppSettings'
 import AccessControl from '../../accessControl'
 import Spinner from '../../utilities/spinner'
+import setAppSettings from './functions/setAppSettings'
+import setDeploymentSource from './functions/setSource'
 
 type props = {
     apiApps: types.application[],
@@ -77,11 +79,11 @@ export class Configure extends React.Component<props, state> {
     }
 
     setDeploymentSource() {
-        console.log(this.state)
+        setDeploymentSource(this.state.deploymentSource, this.state.branch)
     }
 
     setAppSettings() {
-        console.log(this.state)
+        setAppSettings(this.state.appSettings)
     }
 
     render() {
