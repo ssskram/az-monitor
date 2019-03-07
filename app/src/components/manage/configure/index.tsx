@@ -52,7 +52,7 @@ export class Configure extends React.Component<props, state> {
         window.scrollTo(0, 0)
         if (this.props.match.params.app) {
             await this.getApplicationConfig(this.props.match.params.app)
-            this.setState ({
+            this.setState({
                 confirmationModal: true
             })
         }
@@ -85,9 +85,9 @@ export class Configure extends React.Component<props, state> {
     }
 
     setDeploymentSource() {
-        this.setState ({ spinner: true }, async () => {
+        this.setState({ spinner: true }, async () => {
             const newSource = await setDeploymentSource(this.state.appName, this.allApplications().find(x => x.name == this.state.appName).resourceGroup, this.state.deploymentSource, this.state.branch)
-            this.setState ({ 
+            this.setState({
                 deploymentSource: newSource.repo,
                 branch: newSource.branch,
                 spinner: false
@@ -96,9 +96,9 @@ export class Configure extends React.Component<props, state> {
     }
 
     setAppSettings() {
-        this.setState ({ spinner: true }, async () => {
-            const newSettings = await  setAppSettings(this.state.appName, this.allApplications().find(x => x.name == this.state.appName).resourceGroup, this.state.appSettings)
-            this.setState ({
+        this.setState({ spinner: true }, async () => {
+            const newSettings = await setAppSettings(this.state.appName, this.allApplications().find(x => x.name == this.state.appName).resourceGroup, this.state.appSettings)
+            this.setState({
                 appSettings: newSettings,
                 spinner: false
             })
@@ -126,6 +126,7 @@ export class Configure extends React.Component<props, state> {
                         setDeploymentSource={this.setDeploymentSource.bind(this)}
                     />
                     <AppSettings
+                        appName={this.state.appName}
                         setState={this.setState.bind(this)}
                         appSettings={this.state.appSettings}
                         setAppSettings={this.setAppSettings.bind(this)}
@@ -135,7 +136,7 @@ export class Configure extends React.Component<props, state> {
                     <Spinner notice={'...loading ' + this.state.appName + ' configuration...'} />
                 }
                 {this.state.confirmationModal &&
-                    <ConfirmationModal 
+                    <ConfirmationModal
                         setState={this.setState.bind(this)}
                     />
                 }

@@ -3,6 +3,7 @@ import JSONInput from 'react-json-editor-ajrm'
 import locale from 'react-json-editor-ajrm/locale/en'
 
 type props = {
+    appName: string
     setState: (stateObj: object) => void
     appSettings: any
     setAppSettings: () => void
@@ -60,6 +61,7 @@ export default class ApplicationSettings extends React.Component<props, state> {
                         <button
                             className='btn btn-success'
                             style={btnStyle}
+                            disabled={this.props.appName == undefined}
                             onClick={() => {
                                 this.setState({ disabled: true })
                                 this.props.setAppSettings()
