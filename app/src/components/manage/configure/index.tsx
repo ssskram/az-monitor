@@ -56,8 +56,8 @@ export class Configure extends React.Component<props, state> {
             const source: types.sourceControl = await getSourceControl(app)
             const appSettings: any = await getAppSettings(app)
             this.setState({
-                deploymentSource: source.repo,
-                branch: source.branch,
+                deploymentSource: source.repo ? source.repo : '',
+                branch: source.branch ? source.branch : '',
                 appSettings: appSettings.settings
             })
         })

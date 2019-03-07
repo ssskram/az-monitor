@@ -20,7 +20,19 @@ export const actionCreators = {
             .then(data => {
                 dispatch({ type: constants.loadServerless, serverlessApps: data })
             })
-    }
+    },
+    addServerlessApp: (appName, runtime): AppThunkAction<any> => async (dispatch) => {
+        const response = await fetch("https://azureproxy.azurewebsites.us/provision/lambda?appName=" + appName + "&runtime=" + runtime, {
+            method: 'POST',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.REACT_APP_AZURE_PROXY,
+                'Content-Type': 'application/json'
+            })
+        })
+        const newApp = await response.json()
+        await dispatch({ type: constants.addServerlessApp, serverlessApp: newApp })
+        return
+    },
 }
 
 export const reducer: Reducer<types.serverlessApps> = (state: types.serverlessApps, incomingAction: Action) => {
@@ -28,6 +40,8 @@ export const reducer: Reducer<types.serverlessApps> = (state: types.serverlessAp
     switch (action.type) {
         case constants.loadServerless:
             return { ...state, serverlessApps: action.serverlessApps }
+        case constants.addServerlessApp:
+            return { ...state, serverlessApps: state.serverlessApps.concat(action.serverlessApp) }
     }
     return state || unloadedState
 }

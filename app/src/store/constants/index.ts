@@ -13,9 +13,12 @@ export const loadServices = 'loadAppServices'
 
 // api applications
 export const loadApis = 'loadApiApps'
+export const addApiApp = 'addApiApp'
 
 // client applications
 export const loadClients = 'loadClientApps'
+export const addClientApp ='addClientApp'
 
 // serverless applications
 export const loadServerless = 'loadServerlessApps'
+export const addServerlessApp = 'addServerlessApp'

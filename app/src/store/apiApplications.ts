@@ -20,7 +20,19 @@ export const actionCreators = {
             .then(data => {
                 dispatch({ type: constants.loadApis, apiApps: data })
             })
-    }
+    },
+    addApiApp: (appName): AppThunkAction<any> => async (dispatch) => {
+        const response = await fetch("https://azureproxy.azurewebsites.us/provision/api?appName=" + appName, {
+            method: 'POST',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.REACT_APP_AZURE_PROXY,
+                'Content-Type': 'application/json'
+            })
+        })
+        const newApp = await response.json()
+        await dispatch({ type: constants.addApiApp, apiApp: newApp })
+        return
+    },
 }
 
 export const reducer: Reducer<types.apiApps> = (state: types.apiApps, incomingAction: Action) => {
@@ -28,6 +40,8 @@ export const reducer: Reducer<types.apiApps> = (state: types.apiApps, incomingAc
     switch (action.type) {
         case constants.loadApis:
             return { ...state, apiApps: action.apiApps }
+        case constants.addApiApp:
+            return { ...state, apiApps: state.apiApps.concat(action.apiApp) }
     }
     return state || unloadedState
 }

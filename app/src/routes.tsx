@@ -16,7 +16,7 @@ export default () => (
     <Route exact path='/ClientApplications' component={ClientApplications} />
     <Route exact path='/Serverless' component={ServerlessApps} />
     <Route exact path='/Provision' component={Provision} />
-    <Route exact path='/Configure' component={Configure} />
+    <Route exact path='/Configure/:app?' component={Configure} />
     <Route exact path='/Deploy' component={Deploy} />
   </Layout>
 )
