@@ -15,6 +15,7 @@ import AccessControl from '../../accessControl'
 import Spinner from '../../utilities/spinner'
 import setAppSettings from './functions/setAppSettings'
 import setDeploymentSource from './functions/setSource'
+import ConfirmationModal from './markup/confirmationModal'
 
 type props = {
     apiApps: types.application[],
@@ -29,6 +30,7 @@ type state = {
     branch: string
     appSettings: any
     spinner: boolean
+    confirmationModal: boolean
 }
 
 export class Configure extends React.Component<props, state> {
@@ -41,14 +43,18 @@ export class Configure extends React.Component<props, state> {
             appSettings: {
                 select: "application"
             },
-            spinner: false
+            spinner: false,
+            confirmationModal: false
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         window.scrollTo(0, 0)
         if (this.props.match.params.app) {
-            this.getApplicationConfig(this.props.match.params.app)
+            await this.getApplicationConfig(this.props.match.params.app)
+            this.setState ({
+                confirmationModal: true
+            })
         }
     }
 
@@ -127,6 +133,11 @@ export class Configure extends React.Component<props, state> {
                 </div>
                 {this.state.spinner &&
                     <Spinner notice={'...loading ' + this.state.appName + ' configuration...'} />
+                }
+                {this.state.confirmationModal &&
+                    <ConfirmationModal 
+                        setState={this.setState.bind(this)}
+                    />
                 }
             </div>
         )
