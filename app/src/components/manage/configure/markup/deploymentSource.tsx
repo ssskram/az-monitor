@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 type props = {
+    appName: string
     setState: (stateObj: object) => void
     deploymentSource: string
     branch: string
@@ -52,7 +53,7 @@ export default class DeploymentSource extends React.Component<props, state> {
                         className='btn btn-secondary'
                         style={btnStyle}
                         onClick={() => this.setState({ disabled: false })}
-                        disabled={this.props.branch == '' && this.props.deploymentSource == ''}>
+                        disabled={this.props.appName == undefined}>
                         Edit deployment source
                     </button>
                 }

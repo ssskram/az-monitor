@@ -6,8 +6,8 @@ import * as clientApps from '../../../store/clientApps'
 import * as serverlessApps from '../../../store/serverlessApps'
 import * as types from '../../../store/types'
 import DeploymentSource from './markup/deploymentSource'
-import AppSelection from './markup/applicationSelection'
-import AppSettings from './markup/applicationSettings'
+import AppSelection from './markup/appSelection'
+import AppSettings from './markup/appSettings'
 import HydrateStore from '../../utilities/hydrateStore'
 import getSourceControl from './functions/getSource'
 import getAppSettings from './functions/getAppSettings'
@@ -79,11 +79,24 @@ export class Configure extends React.Component<props, state> {
     }
 
     setDeploymentSource() {
-        setDeploymentSource(this.state.deploymentSource, this.state.branch)
+        this.setState ({ spinner: true }, async () => {
+            const newSource = await setDeploymentSource(this.state.appName, this.allApplications().find(x => x.name == this.state.appName).resourceGroup, this.state.deploymentSource, this.state.branch)
+            this.setState ({ 
+                deploymentSource: newSource.repo,
+                branch: newSource.branch,
+                spinner: false
+            })
+        })
     }
 
     setAppSettings() {
-        setAppSettings(this.state.appSettings)
+        this.setState ({ spinner: true }, async () => {
+            const newSettings = await  setAppSettings(this.state.appName, this.allApplications().find(x => x.name == this.state.appName).resourceGroup, this.state.appSettings)
+            this.setState ({
+                appSettings: newSettings,
+                spinner: false
+            })
+        })
     }
 
     render() {
@@ -100,6 +113,7 @@ export class Configure extends React.Component<props, state> {
                         appName={this.state.appName}
                     />
                     <DeploymentSource
+                        appName={this.state.appName}
                         setState={this.setState.bind(this)}
                         deploymentSource={this.state.deploymentSource}
                         branch={this.state.branch}
@@ -112,7 +126,7 @@ export class Configure extends React.Component<props, state> {
                     />
                 </div>
                 {this.state.spinner &&
-                    <Spinner notice={'...loading ' + this.state.appName + '...'} />
+                    <Spinner notice={'...loading ' + this.state.appName + ' configuration...'} />
                 }
             </div>
         )

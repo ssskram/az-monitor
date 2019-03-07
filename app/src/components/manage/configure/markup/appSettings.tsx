@@ -39,6 +39,7 @@ export default class ApplicationSettings extends React.Component<props, state> {
                     locale={locale}
                     viewOnly={this.state.disabled}
                     confirmGood={false}
+                    onKeyPressUpdate={false}
                     height='auto'
                     width='auto'
                     onChange={this.newObj.bind(this)}
