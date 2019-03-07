@@ -12,6 +12,7 @@ import AccessControl from '../../accessControl'
 import getSourceControl from '../configure/functions/getSource'
 import DeploymentSource from './markup/deploymentSettings'
 import Spinner from '../../utilities/spinner'
+import syncSource from './functions/syncSource'
 
 type props = {
     apiApps: types.application[],
@@ -58,7 +59,7 @@ export class Deploy extends React.Component<props, state> {
     }
 
     deploy() {
-
+        syncSource(this.state.appName, this.allApplications().find(x => x.name == this.state.appName).resourceGroup)
     }
 
     render() {
