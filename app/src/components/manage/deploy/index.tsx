@@ -11,6 +11,7 @@ import HydrateStore from '../../utilities/hydrateStore'
 import AccessControl from '../../accessControl'
 import getSourceControl from '../configure/functions/getSource'
 import DeploymentSource from './markup/deploymentSettings'
+import Spinner from '../../utilities/spinner'
 
 type props = {
     apiApps: types.application[],
@@ -21,7 +22,8 @@ type props = {
 type state = {
     appName: string,
     deploymentSource: string
-    branch: string
+    branch: string,
+    spinner: boolean
 }
 
 export class Deploy extends React.Component<props, state> {
@@ -30,7 +32,8 @@ export class Deploy extends React.Component<props, state> {
         this.state = {
             appName: undefined,
             branch: undefined,
-            deploymentSource: undefined
+            deploymentSource: undefined,
+            spinner: false
         }
     }
 
@@ -43,12 +46,13 @@ export class Deploy extends React.Component<props, state> {
     }
 
     getApplicationConfig(appName) {
-        this.setState({ appName: appName }, async () => {
+        this.setState({ appName: appName, spinner:true }, async () => {
             const app = this.allApplications().find(i => i.name == appName)
             const source: types.sourceControl = await getSourceControl(app)
             this.setState({
-                deploymentSource: source.repo,
-                branch: source.branch,
+                deploymentSource: source.repo ? source.repo : '',
+                branch: source.branch ? source.branch : '',
+                spinner: false
             })
         })
     }
@@ -86,6 +90,9 @@ export class Deploy extends React.Component<props, state> {
                         deploy={this.deploy.bind(this)}
                     />
                 </div>
+                {this.state.spinner &&
+                    <Spinner notice={'...loading ' + this.state.appName + '...'}/>
+                }
             </div>
         )
     }
