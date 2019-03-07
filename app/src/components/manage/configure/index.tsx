@@ -12,11 +12,13 @@ import HydrateStore from '../../utilities/hydrateStore'
 import getSourceControl from './functions/getSource'
 import getAppSettings from './functions/getAppSettings'
 import AccessControl from '../../accessControl'
+import Spinner from '../../utilities/spinner'
 
 type props = {
     apiApps: types.application[],
     clientApps: types.application[],
     serverlessApps: types.application[]
+    match: any
 }
 
 type state = {
@@ -24,6 +26,7 @@ type state = {
     deploymentSource: string
     branch: string
     appSettings: any
+    spinner: boolean
 }
 
 export class Configure extends React.Component<props, state> {
@@ -35,7 +38,15 @@ export class Configure extends React.Component<props, state> {
             branch: '',
             appSettings: {
                 select: "application"
-            }
+            },
+            spinner: false
+        }
+    }
+
+    componentDidMount() {
+        window.scrollTo(0, 0)
+        if (this.props.match.params.app) {
+            this.getApplicationConfig(this.props.match.params.app)
         }
     }
 
@@ -50,7 +61,8 @@ export class Configure extends React.Component<props, state> {
             deploymentSource: '',
             appSettings: {
                 loading: "application"
-            }
+            },
+            spinner: true
         }, async () => {
             const app = this.allApplications().find(i => i.name == appName)
             const source: types.sourceControl = await getSourceControl(app)
@@ -58,7 +70,8 @@ export class Configure extends React.Component<props, state> {
             this.setState({
                 deploymentSource: source.repo ? source.repo : '',
                 branch: source.branch ? source.branch : '',
-                appSettings: appSettings.settings
+                appSettings: appSettings.settings,
+                spinner: false
             })
         })
     }
@@ -96,6 +109,9 @@ export class Configure extends React.Component<props, state> {
                         setAppSettings={this.setAppSettings.bind(this)}
                     />
                 </div>
+                {this.state.spinner &&
+                    <Spinner notice={'...loading ' + this.state.appName + '...'} />
+                }
             </div>
         )
     }

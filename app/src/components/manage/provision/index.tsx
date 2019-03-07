@@ -38,6 +38,10 @@ export class Provision extends React.Component<props, state> {
         }
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
     post() {
         this.setState({ spinner: true }, async () => {
             if (this.state.type == "API") {
@@ -72,7 +76,7 @@ export class Provision extends React.Component<props, state> {
             this.state.name != ''
 
         if (this.state.redirect) {
-            return <Redirect push to={'/Configure'} />
+            return <Redirect push to={'/Configure/' + this.state.name} />
         }
 
         return (

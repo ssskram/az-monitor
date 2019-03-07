@@ -34,6 +34,10 @@ export class Deploy extends React.Component<props, state> {
         }
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
     allApplications() {
         return this.props.apiApps.concat(this.props.clientApps).concat(this.props.serverlessApps)
     }
