@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Modal from 'react-responsive-modal'
+import { Cat } from 'react-kawaii'
 
 type props = {
     setState: (stateObj: object) => void
@@ -18,7 +19,10 @@ export default class ProvisionConfirmation extends React.Component<props, {}> {
                 }}
                 showCloseIcon={true}
                 center>
-                <div>Here</div>
+                <div className='text-center'>
+                    <h3>Success!</h3>
+                    <Cat size={220} mood="excited" color="#596881" />
+                </div>
             </Modal>
         )
     }
