@@ -47,7 +47,7 @@ export class Deploy extends React.Component<props, state> {
     }
 
     getApplicationConfig(appName) {
-        this.setState({ appName: appName, spinner:true }, async () => {
+        this.setState({ appName: appName, spinner: true }, async () => {
             const app = this.allApplications().find(i => i.name == appName)
             const source: types.sourceControl = await getSourceControl(app)
             this.setState({
@@ -59,7 +59,15 @@ export class Deploy extends React.Component<props, state> {
     }
 
     deploy() {
-        syncSource(this.state.appName, this.allApplications().find(x => x.name == this.state.appName).resourceGroup)
+        this.setState({ spinner: true }, async () => {
+            await syncSource(this.state.appName, this.allApplications().find(x => x.name == this.state.appName).resourceGroup)
+            this.setState({ 
+                spinner: false, 
+                appName: undefined,
+                branch: undefined,
+                deploymentSource: undefined
+            })
+        })
     }
 
     render() {
@@ -92,7 +100,7 @@ export class Deploy extends React.Component<props, state> {
                     />
                 </div>
                 {this.state.spinner &&
-                    <Spinner notice={'...loading ' + this.state.appName + '...'}/>
+                    <Spinner notice={'...working...'} />
                 }
             </div>
         )
