@@ -44,7 +44,7 @@ export class Configure extends React.Component<props, state> {
                 select: "application"
             },
             spinner: false,
-            confirmationModal: true
+            confirmationModal: false
         }
     }
 

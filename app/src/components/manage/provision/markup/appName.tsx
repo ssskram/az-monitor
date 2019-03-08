@@ -8,7 +8,7 @@ type props = {
 export default class AppName extends React.Component<props, {}> {
 
     validateString(string: string) {
-        const regExp = '[^A-Za-z0-9_-]+'
+        const regExp = '[^A-Za-z0-9-]+'
         if (!string.match(regExp)) {
             this.props.setState({ name: string })
         }
