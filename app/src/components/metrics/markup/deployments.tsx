@@ -65,6 +65,7 @@ export default class Deployments extends React.Component<props, state> {
 
     async getDeployments(props) {
         const deployments = await getDeployments(props.application.resourceGroup, props.application.name)
+        console.log(deployments)
         const source = await getSource(props.application)
         if (this.mounted) {
             this.setState({
