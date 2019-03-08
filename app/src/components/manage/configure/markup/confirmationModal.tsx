@@ -20,9 +20,10 @@ export default class ProvisionConfirmation extends React.Component<props, {}> {
                 showCloseIcon={true}
                 center>
                 <div className='text-center'>
+                    <br />
                     <Cat size={220} mood="excited" color="#596881" />
                     <h2 className='oswald-header'>Success!</h2>
-                    <h4>Now just sync your code from Github,<br />and add any additional environment variables.</h4>
+                    <h4>Now add your Github repo,<br />and environment variables.</h4>
                 </div>
             </Modal>
         )
