@@ -10,7 +10,17 @@ type props = {
     application: types.application
 }
 
-export default class ApplicationCard extends React.Component<props, {}> {
+type state = {
+    showDeployments: boolean
+}
+
+export default class ApplicationCard extends React.Component<props, state> {
+    constructor(props) {
+        super(props)
+        this.state = {
+            showDeployments: false
+        }
+    }
 
     render() {
         const {
@@ -30,15 +40,20 @@ export default class ApplicationCard extends React.Component<props, {}> {
                         <div className='col-md-9 ubuntu' style={{ marginBottom: '25px' }}>
                             <div className='row'>
                                 <div className='col-md-12'>
-                                    Deployments <a href={this.props.type == 'api' ? 'https://' + application.url + '/docs' : "https://" + application.url} target='_blank'>{this.props.type == 'api' ? application.url + '/docs' : application.url}</a>
+                                    <div style={{ width: '100%' }} onClick={() => this.setState({ showDeployments: true })} className='btn btn-secondary'>Show deployments</div>
+                                </div>
+                                <div className='col-md-12'>
+                                    <div style={{ width: '100%' }} className='btn btn-secondary' ><a href={this.props.type == 'api' ? 'https://' + application.url + '/docs' : "https://" + application.url} target='_blank'>{this.props.type == 'api' ? "View documentation" : "View"}</a></div>
                                 </div>
                             </div>
-                            <Deployments
-                                application={application}
-                            />
                         </div>
                     </div>
                     <div className='row'>
+                        {this.state.showDeployments &&
+                            <Deployments
+                                application={application}
+                            />
+                        }
                         <div className='col-md-4 text-center'>
                             <Requests
                                 application={application}
