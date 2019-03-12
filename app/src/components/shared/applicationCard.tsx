@@ -1,9 +1,11 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import * as types from '../../store/types'
 import Deployments from '../metrics/markup/deployments'
 import Requests from '../metrics/markup/requests'
 import FourHundo from '../metrics/markup/fourHundo'
 import FiveHundo from '../metrics/markup/fiveHundo'
+import getSource from '../manage/configure/functions/getSource'
 
 type props = {
     type: string
@@ -12,20 +14,29 @@ type props = {
 
 type state = {
     showDeployments: boolean
+    source: string
 }
 
 export default class ApplicationCard extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
-            showDeployments: false
+            showDeployments: false,
+            source: ''
         }
+    }
+
+    async componentDidMount() {
+        this.setState({
+            source: await getSource(this.props.application)
+        })
     }
 
     render() {
         const {
             application
         } = this.props
+
         return (
             <div className='panel'>
                 <div className='panel-body'>
@@ -39,11 +50,18 @@ export default class ApplicationCard extends React.Component<props, state> {
                         </div>
                         <div className='col-md-9 ubuntu' style={{ marginBottom: '25px' }}>
                             <div className='row'>
+                                {(this.props.type == 'api' || this.props.type == 'client') &&
+                                    <div className='col-md-12'>
+                                        <div onClick={() => window.open(this.props.type == 'api' ? 'https://' + application.url + '/docs' : "https://" + application.url, '_blank')} style={{ width: '100%', borderRadius: '0px' }} className='btn btn-secondary' >{this.props.type == 'api' ? "View documentation" : "View site"}</div>
+                                    </div>
+                                }
+                                {this.state.source &&
+                                    <div className='col-md-12'>
+                                        <div onClick={() => window.open(this.state.source, '_blank')} style={{ width: '100%', borderRadius: '0px' }} className='btn btn-secondary' >View source code</div>
+                                    </div>
+                                }
                                 <div className='col-md-12'>
-                                    <div style={{ width: '100%' }} onClick={() => this.setState({ showDeployments: true })} className='btn btn-secondary'>Show deployments</div>
-                                </div>
-                                <div className='col-md-12'>
-                                    <div style={{ width: '100%' }} className='btn btn-secondary' ><a href={this.props.type == 'api' ? 'https://' + application.url + '/docs' : "https://" + application.url} target='_blank'>{this.props.type == 'api' ? "View documentation" : "View"}</a></div>
+                                    <div style={{ width: '100%', borderRadius: '0px' }} onClick={() => this.setState({ showDeployments: !this.state.showDeployments })} className='btn btn-secondary'>{this.state.showDeployments ? 'Hide deployments' : 'Show deployments'}</div>
                                 </div>
                             </div>
                         </div>
