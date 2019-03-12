@@ -6,5 +6,5 @@ export default async function getSourceControl(app) {
         })
     })
     const source = await response.json()
-    return source.repo
+    return source
 }

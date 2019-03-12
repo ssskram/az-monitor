@@ -14,7 +14,7 @@ type props = {
 
 type state = {
     showDeployments: boolean
-    source: string
+    source: { repo: string, branch: string }
 }
 
 export default class ApplicationCard extends React.Component<props, state> {
@@ -22,7 +22,7 @@ export default class ApplicationCard extends React.Component<props, state> {
         super(props)
         this.state = {
             showDeployments: false,
-            source: ''
+            source: undefined
         }
     }
 
@@ -55,9 +55,9 @@ export default class ApplicationCard extends React.Component<props, state> {
                                         <div onClick={() => window.open(this.props.type == 'api' ? 'https://' + application.url + '/docs' : "https://" + application.url, '_blank')} style={{ width: '100%', borderRadius: '0px' }} className='btn btn-secondary' >{this.props.type == 'api' ? "View documentation" : "View site"}</div>
                                     </div>
                                 }
-                                {this.state.source &&
+                                {(this.state.source && this.state.source.repo) &&
                                     <div className='col-md-12'>
-                                        <div onClick={() => window.open(this.state.source, '_blank')} style={{ width: '100%', borderRadius: '0px' }} className='btn btn-secondary' >View source code</div>
+                                        <div onClick={() => window.open(this.state.source.repo, '_blank')} style={{ width: '100%', borderRadius: '0px' }} className='btn btn-secondary' >View source code</div>
                                     </div>
                                 }
                                 <div className='col-md-12'>
@@ -72,6 +72,8 @@ export default class ApplicationCard extends React.Component<props, state> {
                                 application={application}
                             />
                         }
+                    </div>
+                    <div className='row' style={{ marginTop: '15px' }}>
                         <div className='col-md-4 text-center'>
                             <Requests
                                 application={application}

@@ -71,7 +71,7 @@ export default class Deployments extends React.Component<props, state> {
 
     render() {
         return (
-            <div className='col-md-12' style={{ margin: '5px 0px 30px 0px' }}>
+            <div className='col-md-12' style={{ margin: '15px 0px' }}>
                 <ReactTable
                     data={this.state.deployments}
                     columns={columns}
