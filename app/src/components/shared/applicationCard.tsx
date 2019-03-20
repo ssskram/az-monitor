@@ -26,11 +26,18 @@ export default class ApplicationCard extends React.Component<props, state> {
         }
     }
 
-    async componentDidMount() {
-        this.setState({
-            source: await getSource(this.props.application)
-        })
+    componentDidMount() {
+        this.source()
     }
+
+    componentWillReceiveProps(nextProps, nextState) {
+        console.log(nextProps)
+        if (nextProps.application.name != this.props.application.name) {
+            this.setState({ source: undefined }, () => this.source())
+        }
+    }
+
+    async source() { this.setState({ source: await getSource(this.props.application) }) }
 
     render() {
         const {
