@@ -38,7 +38,7 @@ export default class Filter extends React.Component<props, state> {
             <div className='row'>
                 <div className={this.state.searchTerm ? 'col-sm-6' : 'col-md-12'} style={{ margin: '10px 0px' }}>
                     <Select
-                        placeholder='Search for application'
+                        placeholder='Search for service'
                         value={this.state.searchTerm ? { value: this.state.searchTerm, label: this.state.searchTerm } : null}
                         onChange={f => this.filter(f.value)}
                         options={this.dropdown()}

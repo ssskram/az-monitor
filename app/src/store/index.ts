@@ -5,6 +5,7 @@ import * as appServices from './appServices'
 import * as apiApps from './apiApplications'
 import * as clientApps from './clientApps'
 import * as serverlessApps from './serverlessApps'
+import * as virtualMachines from './virtualMachines'
 
 export interface ApplicationState {
     user: types.user,
@@ -12,7 +13,8 @@ export interface ApplicationState {
     appServices: types.appServices
     apiApps: types.apiApps
     clientApps: types.clientApps
-    serverlessApps: types.serverlessApps
+    serverlessApps: types.serverlessApps,
+    virtualMachines: types.virtualMachines
 }
 
 export const reducers = {
@@ -21,7 +23,8 @@ export const reducers = {
     appServices: appServices.reducer,
     apiApps: apiApps.reducer,
     clientApps: clientApps.reducer,
-    serverlessApps: serverlessApps.reducer
+    serverlessApps: serverlessApps.reducer,
+    virtualMachines: virtualMachines.reducer
 }
 
 export interface AppThunkAction<TAction> {

@@ -13,7 +13,7 @@ export const types = [
   },
   {
     value: "Virtual Machine",
-    description: "When PaaS just can't cut it"
+    description: "For an unfaltering love of SSH"
   }
 ];
 

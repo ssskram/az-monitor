@@ -1,64 +1,81 @@
-import { Url } from 'url';
+import { Url } from "url";
 
 // user
 export interface user {
-    email: string
-    organization: string
-    name: string
+  email: string;
+  organization: string;
+  name: string;
 }
 
 // message
 export interface messsage {
-    message: string
+  message: string;
 }
 
 // application service
 export interface appServices {
-    appServices: appService[]
+  appServices: appService[];
 }
 export interface appService {
-    name: string
-    resourceGroup: string
-    countInstances: number
-    status: string
-    size: string
-    countServices: number
-    services: { type: string }
+  name: string;
+  resourceGroup: string;
+  countInstances: number;
+  status: string;
+  size: string;
+  countServices: number;
+  services: { type: string };
 }
 
 // api applications
 export interface apiApps {
-    apiApps: application[]
+  apiApps: application[];
 }
 
 // client applications
 export interface clientApps {
-    clientApps: application[]
+  clientApps: application[];
 }
 
 // serverless applications
 export interface serverlessApps {
-    serverlessApps: application[]
+  serverlessApps: application[];
+}
+
+// VMs
+export interface virtualMachines {
+  virtualMachines: virtualMachine[];
+}
+export interface virtualMachine {
+  name: string;
+  size: string;
+  image: {
+    type: string;
+    sku: string;
+  };
+  osDisk: {
+    osType: string;
+    diskSize: number;
+  };
 }
 
 // application
 export interface application {
-    name: string
-    status: string
-    url: string
-    resourceGroup: string
+  name: string;
+  status: string;
+  url: string;
+  resourceGroup: string;
 }
 
 // deployment
 export interface deployment {
-    author: string
-    message: string
-    completed: string
-    active: boolean
+  author: string;
+  message: string;
+  completed: string;
+  active: boolean;
 }
 
 // source control
 export interface sourceControl {
-    repo: string
-    branch: string
+  repo: string;
+  branch: string;
 }
