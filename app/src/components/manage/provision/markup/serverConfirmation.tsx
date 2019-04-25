@@ -44,7 +44,10 @@ export default class ServerConfirmation extends React.Component<props, {}> {
           />
           <div className="text-center">
             <br />
-            <h4>Give it atleast 5 minutes before trying to SSH</h4>
+            <h4>
+              <b>Save this information. You will not see it again.</b>
+            </h4>
+            <h5>Give it atleast 5 minutes before trying to SSH</h5>
           </div>
         </div>
       </Modal>
