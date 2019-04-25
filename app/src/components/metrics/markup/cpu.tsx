@@ -4,7 +4,7 @@ import getMetrics from '../functions/cpu'
 import { Line } from 'react-chartjs-2'
 
 type props = {
-    appService: types.appService
+    service: types.appService | types.virtualMachine
 }
 
 type state = {
@@ -30,7 +30,7 @@ export default class FourHundo extends React.Component<props, state> {
     }
     
     async getCPU(props) {
-        const cpu = await getMetrics(props.appService.name)
+        const cpu = await getMetrics(props.service.name)
         if (this.mounted) {
             this.setState({
                 cpu: cpu

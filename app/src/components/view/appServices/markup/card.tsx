@@ -31,12 +31,12 @@ export default class AppServices extends React.Component<props, any> {
                         </div>
                         <div className='col-md-5'>
                             <CPU
-                                appService={this.props.appService}
+                                service={this.props.appService}
                             />
                         </div>
                         <div className='col-md-5'>
                             <Memory
-                                appService={this.props.appService}
+                                service={this.props.appService}
                             />
                         </div>
                     </div>

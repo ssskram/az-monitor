@@ -4,7 +4,7 @@ import getMetrics from '../functions/memory'
 import { Line } from 'react-chartjs-2'
 
 type props = {
-    appService: types.appService
+    service: types.appService | types.virtualMachine
 }
 
 type state = {
@@ -30,7 +30,7 @@ export default class FourHundo extends React.Component<props, state> {
     }
     
     async getMemory(props) {
-        const memory = await getMetrics(props.appService.name)
+        const memory = await getMetrics(props.service.name)
         if (this.mounted) {
             this.setState({
                 memory: memory
