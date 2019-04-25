@@ -111,7 +111,7 @@ export class Configure extends React.Component<props, state> {
                 <AccessControl />
                 <HydrateStore />
                 <div className='panel panel-body'>
-                    <h2>Configure</h2>
+                    <h2>Configure <span style={{ fontSize: '.5em' }}> PaaS services</span></h2>
                     <hr />
                     <AppSelection
                         getAppConfig={this.getApplicationConfig.bind(this)}

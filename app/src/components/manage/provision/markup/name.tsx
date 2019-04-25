@@ -5,7 +5,7 @@ type props = {
     name: string
 }
 
-export default class AppName extends React.Component<props, {}> {
+export default class Name extends React.Component<props, {}> {
 
     validateString(string: string) {
         const regExp = '[^A-Za-z0-9-]+'
@@ -21,7 +21,7 @@ export default class AppName extends React.Component<props, {}> {
                 <input type='search'
                     className='form-control'
                     value={this.props.name}
-                    placeholder="Enter a name for the application"
+                    placeholder="Enter a name for the service"
                     onChange={e => this.validateString(e.target.value)}
                     style={{ maxWidth: '400px', marginLeft: '5px' }}>
                 </input>

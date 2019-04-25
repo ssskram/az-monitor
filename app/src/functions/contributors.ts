@@ -1,3 +1,4 @@
 export const contributors = [
-    "paul.marks@pittsburghpa.gov"
+    "paul.marks@pittsburghpa.gov",
+    "geoffrey.arnold@pittsburghpa.gov"
 ]
