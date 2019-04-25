@@ -13,6 +13,7 @@ import SubmitButton from "./markup/submit";
 import AccessControl from "../../accessControl";
 import Spinner from "../../utilities/spinner";
 import addVirtualMachine from "./functions/createVM";
+import ServerCreationConfirmation from "./markup/serverConfirmation";
 
 type props = {
   addApiApp: (appName: string) => void;
@@ -27,6 +28,8 @@ type state = {
   serverSize: "Scrawny" | "Well-fed" | "Beefcake";
   spinner: boolean;
   redirect: boolean;
+  serverConfirmation: boolean;
+  serverCreationResponse: object;
 };
 
 export class Provision extends React.Component<props, state> {
@@ -38,7 +41,9 @@ export class Provision extends React.Component<props, state> {
       name: "",
       serverSize: undefined,
       spinner: false,
-      redirect: false
+      redirect: false,
+      serverConfirmation: false,
+      serverCreationResponse: undefined
     };
   }
 
@@ -71,12 +76,15 @@ export class Provision extends React.Component<props, state> {
           this.state.name,
           this.state.serverSize
         );
-        console.log(response);
         this.setState({
           type: undefined,
           language: undefined,
           name: "",
-          serverSize: undefined
+          serverSize: undefined,
+          spinner: false,
+          redirect: false,
+          serverCreationResponse: response,
+          serverConfirmation: true
         });
       }
     });
@@ -126,6 +134,12 @@ export class Provision extends React.Component<props, state> {
         </div>
         {this.state.spinner && (
           <Spinner notice={"...provisioning " + this.state.name + "..."} />
+        )}
+        {this.state.serverConfirmation && (
+          <ServerCreationConfirmation
+            setState={this.setState.bind(this)}
+            response={this.state.serverCreationResponse}
+          />
         )}
       </div>
     );
