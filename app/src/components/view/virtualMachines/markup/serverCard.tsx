@@ -15,14 +15,11 @@ export default class VMCard extends React.Component<props, any> {
       <div className="panel">
         <div className="panel-body">
           <div className="row">
-            <div className="col-md-2">
+            <div className="col-md-4">
               <h4 className="oswald-header">{virtualMachine.name}</h4>
             </div>
-            <div className="col-md-5">
-              <CPU service={this.props.virtualMachine} />
-            </div>
-            <div className="col-md-5">
-              <Memory service={this.props.virtualMachine} />
+            <div className="col-md-8">
+              <CPU service={this.props.virtualMachine} type="virtualMachine" />
             </div>
           </div>
         </div>
