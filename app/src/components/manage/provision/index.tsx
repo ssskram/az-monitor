@@ -5,6 +5,7 @@ import { ApplicationState } from "../../../store";
 import * as apiApps from "../../../store/apiApplications";
 import * as clientApps from "../../../store/clientApps";
 import * as serverlessApps from "../../../store/serverlessApps";
+import * as virtualMachines from "../../../store/virtualMachines";
 import TypeSelection from "./markup/type";
 import LanguageSelection from "./markup/languageType";
 import ServerSize from "./markup/serverSize";
@@ -19,6 +20,7 @@ type props = {
   addApiApp: (appName: string) => void;
   addClientApp: (appName: string) => void;
   addServerlessApp: (appName: string, runtime: "dotnet" | "node") => void;
+  loadVirtualMachines: () => void;
 };
 
 type state = {
@@ -86,6 +88,7 @@ export class Provision extends React.Component<props, state> {
           serverCreationResponse: response,
           serverConfirmation: true
         });
+        this.props.loadVirtualMachines()
       }
     });
   }
@@ -150,11 +153,13 @@ export default connect(
   (state: ApplicationState) => ({
     ...state.apiApps,
     ...state.clientApps,
-    ...state.serverlessApps
+    ...state.serverlessApps,
+    ...state.virtualMachines
   }),
   {
     ...apiApps.actionCreators,
     ...clientApps.actionCreators,
-    ...serverlessApps.actionCreators
+    ...serverlessApps.actionCreators,
+    ...virtualMachines.actionCreators
   }
 )(Provision as any);

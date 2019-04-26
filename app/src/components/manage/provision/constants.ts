@@ -13,7 +13,7 @@ export const types = [
   },
   {
     value: "Virtual Machine",
-    description: "For an unfaltering love of SSH"
+    description: "Ubuntu 18.04 LTS"
   }
 ];
 

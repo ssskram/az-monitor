@@ -18,7 +18,7 @@ export default class AppServices extends React.Component<props, any> {
             <div className="col-md-2">
               <h4 className="oswald-header">{appService.name}</h4>
               <div>
-                <b>Status</b>
+                <u>Status</u>
               </div>
               <div
                 className="ubuntu"
@@ -31,15 +31,15 @@ export default class AppServices extends React.Component<props, any> {
                 <b>{appService.status}</b>
               </div>
               <div>
-                <b>Size</b>
+                <u>Size</u>
               </div>
               <div className="ubuntu">{appService.size}</div>
               <div>
-                <b>Instances</b>
+                <u>Instances</u>
               </div>
               <div className="ubuntu">{appService.countInstances}</div>
               <div>
-                <b>Servicing</b>
+                <u>Servicing</u>
               </div>
               <div className="ubuntu">
                 {appService.services.type} - {appService.countServices}

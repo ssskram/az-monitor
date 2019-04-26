@@ -1,6 +1,6 @@
 export default async function cpu(machineName) {
   const response = await fetch(
-    "http://localhost:3000/metrics/virtualMachineCPU?minutes=180&machineName=" +
+    "https://azureproxy.azurewebsites.us/metrics/virtualMachineCPU?minutes=180&machineName=" +
       machineName,
     {
       method: "get",
@@ -10,6 +10,5 @@ export default async function cpu(machineName) {
     }
   );
   const cpu = await response.json();
-  console.log(cpu);
   return cpu;
 }
