@@ -43,19 +43,19 @@ export const languages = [
 export const serverSizes = [
   {
     value: "Scrawny",
-    description: "2GB RAM, 4GB SSD",
+    description: "2GB RAM, 4GB SSD, 30GB VHD",
     cost: "$20 p/ month",
     enabled: true
   },
   {
     value: "Well-fed",
-    description: "4GB RAM, 8GB SSD",
+    description: "4GB RAM, 8GB SSD, 30GB VHD",
     cost: "$60 p/ month",
     enabled: true
   },
   {
     value: "Beefcake",
-    description: "16GB RAM, 32GB SSD",
+    description: "16GB RAM, 32GB SSD, 30GB VHD",
     cost: "$160 p/ month",
     enabled: true
   }
