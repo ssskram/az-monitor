@@ -5,6 +5,8 @@ AZ Monitor is a monitoring, provisioning, configuration, and deployment applicat
 
 AZ Monitor interfaces with [azure-proxy](https://github.com/CityofPittsburgh/azure-proxy) for all data and functionality.
 
+<img src='screenshot.png' width='100%' />
+
 ## A note on boilerplate
 
 The bones of AZ Monitor are shared across all client applications developed by Paul Marks for the City of Pittsburgh.  For more in-depth documentation on the structure,  design choices, authentication flow, and installation procedures for this application, please see the documentation for the [boilerplate](https://github.com/CityofPittsburgh/react-typescript-boilerplate).
