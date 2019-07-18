@@ -3,5 +3,5 @@ export const contributors = [
   "geoffrey.arnold@pittsburghpa.gov",
   "nicholas.hall@pittsburghpa.gov",
   "james.otoole@pittsburghpa.gov",
-  "laura.meixell@pittsburghpa.gov"
+  "lana.redmond@pittsburghpa.gov"
 ];
